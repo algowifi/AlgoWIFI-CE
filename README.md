@@ -12,7 +12,7 @@ Server LAMP, Php Ver. 7.2+
 
 Algorand Node, algod, kmd. 
 
-Optional Algo Indexer or using API AlgoExplore.
+Optional Algo Indexer or using API AlgoExplorer.
 
 Php-sdk Algorand - FFSolutions, 
 
