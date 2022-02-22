@@ -19,9 +19,9 @@ Php-sdk Algorand - FFSolutions,
 PhpMailer for recovery password.
 
 
-Hardware for Access Point:
+# Hardware for Access Point:
 
-Mikrotik ALL Ver. 
+Mikrotik ALL Version ( wireless and wired )
 
 UBNT Unifi in testing.
 
