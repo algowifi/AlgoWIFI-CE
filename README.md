@@ -5,9 +5,25 @@ allows the owners of public and / or private WIFI Hot-Spots offering internet co
 
 Requirement:
 
-S.O. Linux All version
-Server LAMP 
-Algorand Node , algod , kmd. Optional AlgoIndexer
-Php-sdk Algorand - FFSolutions 
-PhpMailer for recovery password
+
+S.O. Linux All version, tested on Ubuntu 18.04 and over.
+
+Server LAMP, Php Ver. 7.2+
+
+Algorand Node, algod, kmd. 
+
+Optional AlgoIndexer,
+
+Php-sdk Algorand - FFSolutions, 
+
+PhpMailer for recovery password.
+
+
+Hardware for Access Point:
+
+Mikrotik ALL Ver. 
+
+UBNT Unifi in testing.
+
+AP based on OpenWRT in testing.
 
