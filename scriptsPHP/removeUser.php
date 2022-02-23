@@ -62,7 +62,7 @@
 
     // //0) Declare constants
     // $mainAccountAddress = "HX2NYIIWEYBTSKE2EMAKIRZAQPRRL2JJOLPBCX33V2TYWGIBR626JHM6RA";
-    // $mainWalletPw = 'shype2022';
+    // $mainWalletPw = '';
     // $algodToken = '49f27db9b910c6e3548de27e73af38697394906ff2c2f0aeace2fe2b15589bce';
     // $genesis = 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=';
     // $algowifiAssetId = 67967557;
