@@ -34,5 +34,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
     linkColor.forEach(l=> l.addEventListener('click', colorLink))
     
-    // Your code to run since DOM is loaded and ready
+    // code to run since DOM is loaded and ready
     });
