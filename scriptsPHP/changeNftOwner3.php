@@ -68,9 +68,8 @@
     $return_array=json_decode($return['response']);
     $lastRound=$return_array->{'last-round'} ;
 
-    //Transaction 1 //opt-in to asset
-    $transactions=array();
-    $transactions[]=array(
+     //2) opt-in to an asset
+     $transaction=array(
         "txn" => array(
                 "type" => "axfer", //Tx Type
                 "arcv" => $to, //AssetReceiver
@@ -82,75 +81,28 @@
                 "xaid" => $nft, //XferAsset ID
             ),
     );
-    //Transaction 2 //asset transfer
-    $transactions[]=array(
-        "txn" => array(
-                "type" => "axfer", //Tx Type
-                "arcv" => $to, //AssetReceiver
-                "snd" => $from, //Sender
-                "fee" => 1000, //Fee
-                "fv" => $lastRound, //First Valid
-                "lv" => $lastRound+300, //Last Valid
-                "gh" => $genesis, //Genesis Hash
-                "xaid" => $nft, //XferAsset ID
-                "aamt" => 1,
-            ),
-    );
 
-
-    //2) Group TRansactions
-    $groupid=$algorand_kmd->groupid($transactions);
-    #Assigns Group ID
-    $transactions[0]['txn']['grp']=$groupid;
-    $transactions[1]['txn']['grp']=$groupid;
-
-    //3) Sign Transactions
-    #Sign Transaction 1
-    $txn="";
-    $clearTxn="";
+    //2.1) sign transaction
     $params['params']=array(
-    //"public_key" => $algorand_kmd->pk_encode($mainAccountAddress),
-    "transaction" => $algorand_kmd->txn_encode($transactions[0]),
-    "wallet_handle_token" => $wallet_handle_token,
-    "wallet_password" => $mainWalletPw,
-    );
-
-
+        "transaction" => $algorand_kmd->txn_encode($transaction),
+        "wallet_handle_token" => $wallet_handle_token,
+        "wallet_password" => $mainWalletPw,
+     );
     $return=$algorand_kmd->post("v1","transaction","sign",$params);
     $r=json_decode($return['response']);
-    $txn.=base64_decode($r->signed_transaction);
-    $clearTxn.=$r->signed_transaction;
-
-    #Sign Transaction 2
-    $params['params']=array(
-    //"public_key" => $algorand_kmd->pk_encode($mainAccountAddress),
-    "transaction" => $algorand_kmd->txn_encode($transactions[1]),
-    "wallet_handle_token" => $wallet_handle_token,
-    "wallet_password" => $mainWalletPw,
-    );
-
-    $return=$algorand_kmd->post("v1","transaction","sign",$params);
-    $r=json_decode($return['response']);
-    $txn.=base64_decode($r->signed_transaction);
-    $clearTxn.=$r->signed_transaction;
-
-    //4) Send Transaction Group
-    #Broadcasts a raw atomic transaction to the network.
+    $txn=base64_decode($r->signed_transaction);
+    
+    //2.2) broadcast transaction
     $params['transaction']=$txn;
     $return=$algorand->post("v2","transactions",$params);
-    $txId=$return['response']->txId;
 
-    //5) check transaction group status
+
+    //2.3 check if first transaction succeded   
     $return_array=json_decode($return['response']);
     $transactionID=$return_array->{'txId'} ;
     if ($return['code'] == 200)
     {
-        $successString = 'Asset transfer succeded! txId: '.$transactionID;
-        printOutput(1, $successString);
-        error_log($successString);
-
-        //Try opt-out after atomic transfer
-        //4. Opt-out
+        //3) asset transfer 
         $transaction=array(
             "txn" => array(
                     "type" => "axfer", //Tx Type
@@ -161,11 +113,11 @@
                     "lv" => $lastRound+300, //Last Valid
                     "gh" => $genesis, //Genesis Hash
                     "xaid" => $nft, //XferAsset ID
-                    "aclose" => $from,
+                    "aamt" => 1,
                 ),
         );
 
-        //4.1) sign transaction
+        //3.1) sign transaction
         $params['params']=array(
             "transaction" => $algorand_kmd->txn_encode($transaction),
             "wallet_handle_token" => $wallet_handle_token,
@@ -174,19 +126,66 @@
         $return=$algorand_kmd->post("v1","transaction","sign",$params);
         $r=json_decode($return['response']);
         $txn=base64_decode($r->signed_transaction);
+        //print_r($return);
 
-        //4.2) broadcast transaction
+        //3.2) broadcast transaction
         $params['transaction']=$txn;
         $return=$algorand->post("v2","transactions",$params);
 
+        //3.3) check if second transaction succeded
+        if ($return['code'] == 200)
+        {
+
+            //4. Opt-out
+            $transaction=array(
+                "txn" => array(
+                        "type" => "axfer", //Tx Type
+                        "arcv" => $to, //AssetReceiver
+                        "snd" => $from, //Sender
+                        "fee" => 1000, //Fee
+                        "fv" => $lastRound, //First Valid
+                        "lv" => $lastRound+300, //Last Valid
+                        "gh" => $genesis, //Genesis Hash
+                        "xaid" => $nft, //XferAsset ID
+                        "aclose" => $from,
+                    ),
+            );
+
+            //4.1) sign transaction
+            $params['params']=array(
+                "transaction" => $algorand_kmd->txn_encode($transaction),
+                "wallet_handle_token" => $wallet_handle_token,
+                "wallet_password" => $mainWalletPw,
+            );
+            $return=$algorand_kmd->post("v1","transaction","sign",$params);
+            $r=json_decode($return['response']);
+            $txn=base64_decode($r->signed_transaction);
+            
+            //4.2) broadcast transaction
+            $params['transaction']=$txn;
+            $return=$algorand->post("v2","transactions",$params);
+
+            //4.4 check if opt-out transaction succeded   
+            if ($return['code'] == 200)
+            {
+                printOutput(1, 'Asset transfer succeded!');
+            }
+            else 
+            {
+                printOutput(1, 'Asset transfer succeded! But Opt-out failed!');
+            }
+
+        }
+        else 
+        {
+            printOutput(0, 'Error Transferring asset: '.$return['message']);
+        }
     }
-    else
+    else 
     {
-        $s = print_r($return, true);
-        $failString = 'Transaction Failed! '.$s;
-        printOutput(0, $failString);
-        error_log($failString);
+        printOutput(0, 'Error Opt-In: '.$return['message']);
     }
+
 
     
 

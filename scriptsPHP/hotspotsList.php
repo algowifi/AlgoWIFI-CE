@@ -2,6 +2,7 @@
 session_start();
 include('dbConn.php');
 include('../sdk/algorand.php');
+include('./algoConfig.php');
 header('Content-Type: application/json; charset=utf-8');
 
 //allow execution only to admin and hotspotter
@@ -56,10 +57,8 @@ if ($result->num_rows > 0)
     while ($row = $result->fetch_assoc()) 
     {
          //Get owner name from nft:
-         $response = file_get_contents($algoExplorerAssetsApiPrefix.$row['nft'].'/balances?currency-greater-than=0');
-
-         
-
+        $response = file_get_contents($algoExplorerAssetsApiPrefix.$row['nft'].'/balances?currency-greater-than=0');
+        
         $response = json_decode($response);
         $nftOwnerAddress = $response->{'balances'}[0]->{'address'};
         //get owner name from mysql

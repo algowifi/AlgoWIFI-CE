@@ -33,13 +33,13 @@
         if ($success)
         {
             $output['success'] = 1;
-            $output['message'] = $msg;//"New Hotspot added successfully!";
+            $output['message'] = $msg;
             echo json_encode($output);
         }
         else
         {
             $output['success'] = 0;
-            $output['message'] = $msg;//"Error adding new Hotspot!";
+            $output['message'] = $msg;
             echo json_encode($output);
         }
     }
