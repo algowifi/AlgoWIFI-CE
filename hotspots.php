@@ -96,7 +96,7 @@ include './scriptsPHP/dbConn.php';
                     </div>
                     <div class="form-group">
                         <label>Owner</label>
-                        <select  id="newOwner" class="form-select" aria-label="Default select example" required>
+                        <select  id="newOwner" class="form-select" aria-label="Select Owner" required>
                             <option value="" selected>Choose a user</option>
                             <?php
                                 //perform query 
@@ -106,8 +106,6 @@ include './scriptsPHP/dbConn.php';
                                     while ($row = $result->fetch_assoc()) 
                                     {
                                         echo '<option value="'.$row['algorandAddress'].'">'.$row['name'].'</option>';
-
-                                        // echo '<option value="'.$row['algorandAddress'].'">'.$row['name'].'</option>';
                                     }
                                 } 
                             ?>

@@ -14,8 +14,7 @@
 
     <?php
         include('sdk/algorand.php');
-        $algodToken = '49f27db9b910c6e3548de27e73af38697394906ff2c2f0aeace2fe2b15589bce';
-        $algorand = new Algorand_algod($algodToken,"localhost",53898); //get the token key in data/algod.admin.token
+        include('./scriptsPHP/algoConfig.php');
         $return=$algorand->get("v2","status");        
         print_r($return);
         $return_array=json_decode($return['response']);
@@ -35,7 +34,6 @@
 
 
 
-        $algorand_kmd = new Algorand_kmd('b1bdecba8a5374ea4e4b853df49f9d58c1877ee5edcbd2fba63653228dc35d74',"localhost",7833); 
 
         echo "<h4>kmd version</h4>";
         $return=$algorand_kmd->get("versions");
@@ -94,7 +92,7 @@
         // echo "<h4>import new key in wallet</h4>";
         // print_r($return);
 
-        //make a transaction of 0,2 algos from main to new 
+        //make a transaction of 0,3 algos from main to new 
         $transaction=array(
             "txn" => array(
                     "fee" => 1000, //Fee
@@ -161,10 +159,6 @@
     $return=$algorand->post("v2","transactions",$params);
     echo "<h4>broadcast opt-in</h4>";
     print_r($return);
-
-
-
-   
 
 
     ?>

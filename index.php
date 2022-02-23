@@ -30,7 +30,7 @@ if (isset($_SESSION['user']))
 
       <!-- Icon -->
       <div class="fadeIn first">
-        <img src="https://algowifi.com/images/algowifiLogo_PNG.png" id="icon" alt="AlgoWiFi" />
+        <img src="https://algowifi.com/images/algowifiLogo.png" id="icon" alt="AlgoWiFi" />
       </div>
   
       <!-- Login Form -->

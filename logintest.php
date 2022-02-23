@@ -23,6 +23,8 @@ $macesc = $_POST['mac-esc'];
 $server = $_POST['server-name'];
 $NFT_wifi = $_POST['identity']; 
 
+$referAdd = $_SERVER['HTTP_REFERER'];
+
 //se l'nft non è impostato, mostra campagna di default
 if (!isset($NFT_wifi)) {
     //show default campaign
@@ -75,6 +77,7 @@ if (!$missingNFT) {
     $output['Location'] = $server. " - ".$message;
     $output['CampaignName'] = $message;
     $output['CampaignId'] = $row['id'];
+    $output['referer'] = $referAdd;
     $combined = json_encode($output);
 
     //get Publisher AWIFI balance
@@ -221,34 +224,34 @@ $conn->close();
 
 
 
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="it">
 
 <head>
     <title>AlgoWiFi hotspot > login</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="pragma" content="no-cache" />
     <meta http-equiv="expires" content="-1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style type="text/css">
-        body {
-            color: #737373;
-            font-size: 10px;
+        
+
+        #container{
+            margin-top: 10%;   
+            text-align: center;   
+            color: #c1c1c1; 
+            font-size: 30px;  
             font-family: verdana;
         }
 
-        textarea,
-        input,
-        select {
-            background-color: #FDFBFB;
-            border: 1px solid #BBBBBB;
-            padding: 2px;
-            margin: 1px;
-            font-size: 14px;
-            color: #808080;
+        img {
+            width: 95%;
         }
 
+        #connectUrl {
+            color: #FF8080 ;
+            font-size: 32px;
+        }
         a,
         a:link,
         a:visited,
@@ -257,39 +260,29 @@ $conn->close();
             text-decoration: none;
             font-size: 10px;
         }
-
         a:hover {
             border-bottom: 1px dotted #c1c1c1;
             color: #AAAAAA;
         }
-
-        img {
-            border: none;
+        #errorDiv {
+            color: #FF8080; 
+            font-size: 9px;
         }
 
-        td {
-            font-size: 14px;
-            color: #7A7A7A;
-        }
     </style>
 
 </head>
 
 <body>
 
-    <table width="100%" style="margin-top: 10%;">
-        <tr>
-            <td align="center" valign="middle">
-                <div class="notice" style="color: #c1c1c1; font-size: 30px">Questa connessione e' offerta da:<p>
-                    <div class="notice" style="color: #c1c1c1; font-size: 30px"><img src="<?= $image; ?>">
-                        <p>
-                            Per collegarti, <a style="color: #FF8080 ;font-size: 32px" href="<?php echo $linkloginonly; ?>?dst=<?php echo $linkorigesc; ?>&username=T-<?php echo $macesc; ?>">click here</a>.
-                    </div><br />
-                    <br />
-                    <div style="color: #FF8080; font-size: 9px"><?php echo $error; ?></div>
-            </td>
-        </tr>
-    </table>
+<div id="container">
+    <p>Questa connessione e' offerta da:</p>
+    <img src="<?= $image; ?>">
+    <p>
+        Per collegarti, <a id="connectUrl" href="<?php echo $linkloginonly; ?>?dst=<?php echo $linkorigesc; ?>&username=T-<?php echo $macesc; ?>">click here</a>.
+    </p>
+    <div id="errorDiv"><?php echo $error; ?></div> 
+</div>
 
 </body>
 
