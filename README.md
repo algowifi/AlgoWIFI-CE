@@ -10,8 +10,8 @@ Requirement:
 * Server LAMP, Php Ver. 7.2+
 * Algorand Node, algod, kmd. 
 * Optional Algo Indexer or using API AlgoExplorer.
-*Php-sdk Algorand - FFSolutions, https://github.com/ffsolutions/php-algorand-sdk
-*PhpMailer for recovery password.
+* Php-sdk Algorand - FFSolutions, https://github.com/ffsolutions/php-algorand-sdk
+* PhpMailer for recovery password.
 
 
 # Hardware for Access Point:
