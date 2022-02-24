@@ -17,13 +17,9 @@ Requirement:
 # Hardware for Access Point:
 
 * Mikrotik ALL Version ( wireless and wired )
-
 * UBNT Unifi in testing.
-
 * AP based on OpenWRT in testing.
-
 * Application for Hot-Spot Managemant in testing.
-
 
 
 # Changelog
