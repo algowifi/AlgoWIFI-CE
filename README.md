@@ -24,5 +24,5 @@ Requirement:
 
 # Changelog
 
-1 Ver. 1.0 stable
+- Ver. 1.0 stable
 
