@@ -9,23 +9,20 @@ Requirement:
 * S.O. Linux All version, tested on Ubuntu 18.04+.
 * Server LAMP, Php Ver. 7.2+
 * Algorand Node, algod, kmd. 
-
-Optional Algo Indexer or using API AlgoExplorer.
-
-Php-sdk Algorand - FFSolutions, https://github.com/ffsolutions/php-algorand-sdk
-
-PhpMailer for recovery password.
+* Optional Algo Indexer or using API AlgoExplorer.
+*Php-sdk Algorand - FFSolutions, https://github.com/ffsolutions/php-algorand-sdk
+*PhpMailer for recovery password.
 
 
 # Hardware for Access Point:
 
-Mikrotik ALL Version ( wireless and wired )
+* Mikrotik ALL Version ( wireless and wired )
 
-UBNT Unifi in testing.
+* UBNT Unifi in testing.
 
-AP based on OpenWRT in testing.
+* AP based on OpenWRT in testing.
 
-Application for Hot-Spot Managemant in testing.
+* Application for Hot-Spot Managemant in testing.
 
 
 
