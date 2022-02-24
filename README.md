@@ -29,3 +29,9 @@ AP based on OpenWRT in testing.
 
 Application for Hot-Spot Managemant in testing.
 
+
+
+# Changelog
+
+1 Ver. 1.0 stable
+
