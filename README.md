@@ -26,5 +26,8 @@ Requirement:
 
 - Ver. 1.0 stable
   - change name of logintest.php in algowifi.php
+  - add **$mainReserveAddress** in algoconfig.php
+
+
 
 
