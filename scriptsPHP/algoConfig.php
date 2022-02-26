@@ -19,6 +19,7 @@
     
     $platformFee = 100;
     $hotspotFee = 60;
+    $reserveFee = 10;
 
     //2) Instances to algod and Kmd
     $algorand = new Algorand_algod($algodToken,$server,$algodPort); 
