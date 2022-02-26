@@ -98,7 +98,7 @@ $(document).ready( function ()
         form_data.append('newHotspots', newHotspots);
         form_data.append('file', file_data);
         //alert(" hotspots: " + newHotspots);                             
-   
+
 
         $.ajax({
             url: './scriptsPHP/addNewCampaign.php',
@@ -139,6 +139,19 @@ $(document).ready( function ()
     });
 
 
+     //if there is a message | error as get param, show it.
+     var parameterList = new URLSearchParams(window.location.search)
+     var receivedMsg = parameterList.get('message');
+     var receivedErr = parameterList.get('error');
+     //var receivedUserID = parameterList.get('userid');
+     if (receivedMsg != null)
+     {
+         alertBox(receivedMsg,"success");
+     }
+     if (receivedErr != null)
+     {
+         alertBox(receivedErr,"danger");
+     }
 
 });
 

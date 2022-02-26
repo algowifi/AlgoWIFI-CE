@@ -84,6 +84,24 @@ $(document).ready(function () {
         }
     });
 
+    $('#btnRemove').click(function () {
+        if (confirm("Are you sure to completly delete this Campaign?") == true) 
+        {
+            var cID = $('#campaignIdField').val();
+            var uID = $('#campaignOwnerIdField').val();
+            $.post("./scriptsPHP/removeCampaign.php", { cid: cID, uid : uID}).done(function (data) {
+                if (data['success'] == 1) 
+                {
+                    //go back with message campaign removed
+                    window.location.href = "campaigns.php?message=Campaign removed!";
+                }
+                else                    
+                {
+                    alertBox(data['message'],'danger');
+                }
+            });
+        }
+    });
 
     $('#btnCancel').click(function () {
         history.back(1);
@@ -109,23 +127,79 @@ $(document).ready(function () {
         var newLanding = $('#landingUrlField').val();
         var newIsActive = $('#isActiveField').is(":checked");
 
+        var file_data = $('#newImageUrl').prop('files')[0];   
+
+        var form_data = new FormData();                  
+        form_data.append('cid', cID);
+        form_data.append('newName', newName);
+        form_data.append('newDesc', newDesc);
+        form_data.append('newLanding', newLanding);
+        form_data.append('newIsActive', newIsActive);
+        form_data.append('newImg', newImg);
+
+        if (file_data != undefined)
+        {
+            //change the image, perform new file update
+            form_data.append('newFile', file_data);
+        }
 
         //send fields to php
-        $.post("./scriptsPHP/editCampaign.php", { cid: cID, newName: newName, newDesc: newDesc, newImg: newImg, newLanding: newLanding, newIsActive : newIsActive }).done(function (data) {
-            if (data['success'] == 1) 
+        //v.2 
+        $.ajax({
+            url: './scriptsPHP/editCampaign.php',
+            dataType: 'json', 
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,                         
+            type: 'post',
+            success: function(response)
             {
-                alertBox(data['message'], 'success');
-            }
-            else 
-            {
-                alertBox(data['message'], 'danger');
-            }
-            //re enable button 
-            $('#btnSave').prop("disabled",false);
-            //stop spinner
-            $('#spinner').hide();
+				if (response.success == 1)
+                {
+                    alertBox(response.message, 'success');
+                }
+                else 
+                {
+                    alertBox(response.message, 'danger');
+                }
+                //enable button
+                $('#btnSave').prop("disabled",false);
+                //stop spinner
+                $('#spinner').hide();
 
-        });
+            },
+            error: function(jqXHR, textstatus, errorThrown)
+		    {
+				alert("errore ajax "+textstatus + " "+errorThrown);
+                //enable button
+                $('#btnSave').prop("disabled",false);
+                //stop spinner
+                $('#spinner').hide();
+			}
+         });
+
+
+       
+
+
+        // //send fields to php 
+        // //v.1 working but without file upload
+        // $.post("./scriptsPHP/editCampaign.php", { cid: cID, newName: newName, newDesc: newDesc, newImg: newImg, newLanding: newLanding, newIsActive : newIsActive }).done(function (data) {
+        //     if (data['success'] == 1) 
+        //     {
+        //         alertBox(data['message'], 'success');
+        //     }
+        //     else 
+        //     {
+        //         alertBox(data['message'], 'danger');
+        //     }
+        //     //re enable button 
+        //     $('#btnSave').prop("disabled",false);
+        //     //stop spinner
+        //     $('#spinner').hide();
+
+        // });
 
     });
 
