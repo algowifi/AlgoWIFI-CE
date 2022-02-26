@@ -150,12 +150,33 @@ if ($performTransactions)
         ),
     );
     
+    //Transaction 3 : payment to reserve address
+    $transactions[]=array(
+        "txn" => array(
+            "aamt" => $hotspotFee,
+            "type" => "axfer", //Tx Type
+            "fee" => 1000, //Fee
+            "fv" => $lastround, //Take the last round
+            "gen" => $genesisID, // GenesisID
+            "gh" => $genesis, //Genesis Hash
+            "lv" => $lastround + 200, //Add 200 round 
+            "note" => $combined, //Your note
+            "snd" => $mainAccountAddress, //Sender platform
+            "arcv" => $mainReserveAddress, //Receiver reserve address
+            "xaid" => $algowifiAssetId, // ID Asa
+        ),
+    );
+    
+    
     //2) Group TRansactions
     $groupid=$algorand_kmd->groupid($transactions);
     #Assigns Group ID
     $transactions[0]['txn']['grp']=$groupid;
     $transactions[1]['txn']['grp']=$groupid;
- 
+    $transactions[2]['txn']['grp']=$groupid; 
+    
+    
+    
     //3) Sign Transactions
     #Sign Transaction 1
     $txn="";
@@ -185,6 +206,19 @@ if ($performTransactions)
     $r=json_decode($return['response']);
     $txn.=base64_decode($r->signed_transaction);
     $clearTxn.=$r->signed_transaction;
+    
+     #Sign Transaction 3
+    $params['params']=array(
+    //"public_key" => $algorand_kmd->pk_encode($mainAccountAddress),
+    "transaction" => $algorand_kmd->txn_encode($transactions[2]),
+    "wallet_handle_token" => $wallet_handle_token,
+    "wallet_password" => $mainWalletPw,
+    );
+    
+    $return=$algorand_kmd->post("v1","transaction","sign",$params);
+    $r=json_decode($return['response']);
+    $txn.=base64_decode($r->signed_transaction);
+    $clearTxn.=$r->signed_transaction;   
 
     //4) Send Transaction Group
     #Broadcasts a raw atomic transaction to the network.
