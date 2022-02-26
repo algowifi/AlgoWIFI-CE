@@ -4,7 +4,7 @@
 allows the owners of public and / or private WIFI Hot-Spots offering internet connections, the enhancement of accesses through an advertising circuit based on the **Algorand blockchain**.
 
 
-Requirement:
+**Requirement:**
 
 
 * S.O. Linux All version, tested on Ubuntu 18.04+.
