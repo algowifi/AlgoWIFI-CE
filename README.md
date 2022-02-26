@@ -28,6 +28,8 @@ Requirement:
 - Ver. 1.0 stable
   - change name of logintest.php in algowifi.php
   - add **$mainReserveAddress** in algoconfig.php
+  - add Atomic Transfer for Reserve address in algowifi.php
+  
 
 
 
