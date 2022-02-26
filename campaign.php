@@ -32,7 +32,9 @@
     } 
    $conn->close();
      
-   $inputDisabled = ($_SESSION['user']['isAdmin']) ? '' : 'disabled' ;
+   $allowEditing = (($_SESSION['user']['isAdmin']) || ($_SESSION['user']['isPublisher'] && !$thisCapaign['isActive']));
+   $inputDisabled = $allowEditing ? '' : 'disabled' ;
+   $isActiveDisabled = ($_SESSION['user']['isAdmin']) ? '' : 'disabled' ;
 
 ?>
 <html lang="en">
@@ -120,7 +122,7 @@
                 <input id="campaignOwnerIdField" type="hidden" value="<?php echo $thisCapaign['userId']; ?>" <?php echo $inputDisabled;?>  >
                 <div class="form-check form-switch">
                         <label class="form-check-label" for="isActiveField">isActive</label>
-                        <input id="isActiveField" type="checkbox" class="form-check-input" <?php echo $inputDisabled;
+                        <input id="isActiveField" type="checkbox" class="form-check-input" <?php echo $isActiveDisabled;
                             if ($thisCapaign['isActive'])
                                 echo ' checked';
                         ?>>
@@ -142,10 +144,19 @@
                         <input id="descriptionField" type="text" class="form-control" value="<?php echo $thisCapaign['description']; ?>" required <?php echo $inputDisabled;?>>
                     </div>
                     <div class="form-group">
-                        <label>Image url</label>
-                        <input id="imageUrlField" type="text" class="form-control" value="<?php echo $thisCapaign['imageUrl']; ?>" required <?php echo $inputDisabled;?>>
+                        <label>Current image</label>
+                        <input id="imageUrlField" type="text" class="form-control" value="<?php echo $thisCapaign['imageUrl']; ?>" required <?php echo $isActiveDisabled;?>>
                         <img src='<?php echo $thisCapaign['imageUrl']; ?>' />
                     </div>
+                    <?php
+                        if ($allowEditing)
+                        {
+                            echo'<div class="form-group">
+                            <label>Change image</label>
+                            <input id="newImageUrl" type="file" accept="image/jpeg,image/png" class="form-control" >
+                            </div>';
+                        }
+                    ?>
                     <div class="form-group">
                         <label>Landing url</label>
                         <input id="landingUrlField" type="text" class="form-control" value="<?php echo $thisCapaign['landingUrl']; ?>" required <?php echo $inputDisabled;?>>
@@ -161,7 +172,7 @@
                         <span class="sr-only"></span>
                     </div>
                     <?php
-                        if ($_SESSION['user']['isAdmin'])
+                        if ($allowEditing)
                         {
                             echo '<button type="button" id="btnCancel" class="btn btn-secondary" tabindex="2">Cancel</button>';
                             echo '<button type="submit" id="btnSave" value="btnSave" class="btn btn-primary" translate="1">Save</button>';
@@ -170,6 +181,8 @@
                         {
                             echo '<button type="button" id="btnDisable" class="btn btn-danger" tabindex="2">Disable this campaign</button>';
                         }
+                        echo '<button type="button" id="btnRemove" class="btn btn-danger">Delete this campaign</button>';
+
                     ?>
                 </div>
             </form>
