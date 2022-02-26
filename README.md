@@ -25,4 +25,6 @@ Requirement:
 # Changelog
 
 - Ver. 1.0 stable
+- - change name of logintest.ph in algowifi.php
+
 
