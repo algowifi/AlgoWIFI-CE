@@ -1,42 +1,39 @@
 <!DOCTYPE html>
-<?php 
-    include 'check.php'; 
-    include 'scriptsPHP/dbConn.php'; 
-    include('sdk/algorand.php');
-    include('scriptsPHP/algoConfig.php');
-    //adminCheck();
-    if (!isset($_GET['hotid']))
-    {
-        //show current user profile
-    }
-    else 
-    {
-        //load hotspot data from db
-        $sql = "SELECT * FROM Hotspot WHERE id=".$_GET['hotid'];
-        $result = $conn->query($sql);
+<?php
+include 'check.php';
+include 'scriptsPHP/dbConn.php';
+include('sdk/algorand.php');
+include('scriptsPHP/algoConfig.php');
+if (!isset($_GET['hotid'])) {
+    header("Location: hotspots.php");
+} else {
+    //load hotspot data from db
+    $sql = "SELECT * FROM Hotspot WHERE id=" . $_GET['hotid'];
+    $result = $conn->query($sql);
 
-        if ($result->num_rows == 1) 
-        {
-            // output data of each row
-            $thisHotspot = $result->fetch_assoc();
-        } 
-        else 
-        {
-            echo "0 results";
-        }
-
-        //load this hotspot totViews
-        $sql = "SELECT SUM(views) as totViews FROM Hotspot_Campaign WHERE hotspotId = ".$_GET['hotid'];
-        $result = $conn->query($sql);
-        $row = $result->fetch_assoc();
-        $totViews = $row['totViews']; 
-        
+    if ($result->num_rows == 1) {
+        // output data of each row
+        $thisHotspot = $result->fetch_assoc();
+    } else {
+        error_log("0 results: hotspot with id " . $_GET['hotid'] . " not found! redirecting to hotspots page");
+        header("Location: hotspots.php");
     }
-    
-    
+
+    //load this hotspot totViews
+    $sql = "SELECT SUM(views) as totViews FROM Hotspot_Campaign WHERE hotspotId = " . $_GET['hotid'];
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
+    $totViews = $row['totViews'];
+}
+
+$inputDisabled = ($_SESSION['user']['isAdmin']) ? '' : 'disabled';
+
+
+
 
 ?>
 <html lang="en">
+
 <head>
     <title>Hotspot Page</title>
     <meta charset='utf-8'>
@@ -53,13 +50,14 @@
     <script type="text/javascript" src="./js/hotspot.js"></script>
     <link rel="stylesheet" href="./css/menu.css">
 </head>
+
 <body id="body-pd" class="body-pd">
     <header class="header body-pd" id="header">
         <div class="header_toggle"> <i class='bx bx-menu bx-x' id="header-toggle"></i> </div>
         <div class="header_img"> <img src="./img/Alogo.png" alt=""> </div>
     </header>
     <?php
-        printMenu();
+    printMenu();
     ?>
     <!--Container Main start-->
     <div class="height-100 bg-light">
@@ -76,13 +74,12 @@
         FROM User as U, Campaign as C, Hotspot_Campaign as HC 
         WHERE C.isActive = 1 AND U.id = C.userId AND HC.hotspotId = " . $thisHotspot['id'] . " AND C.id = HC.campaignId
         ORDER BY C.creation ASC LIMIT 1"; // carica la campagna attiva LiFo
-    
+
         $result = $conn->query($sql);
-        if ($result->num_rows == 1) 
-        {
+        if ($result->num_rows == 1) {
             $row = $result->fetch_assoc();
-            $cId = $row['id'];  
-            $cName = $row['name'];  
+            $cId = $row['id'];
+            $cName = $row['name'];
             $cImage = $row['imageUrl'];
             $cViews = $row['views'];
             $publisherAddress = $row['publisher_address'];
@@ -91,75 +88,120 @@
             echo '<div class="card-body">';
             echo '<h5 class="card-title">Current active campaign</h5>';
             echo '<p class="card-text">';
-            echo $cName.' - Views: '.$cViews;
+            echo $cName . ' - Views: ' . $cViews;
             echo ' </p>';
-            echo '<p class="card-text">Publisher: '.$publisherAddress.'</p>';
+            echo '<p class="card-text">Publisher: ' . $publisherAddress . '</p>';
 
             if ($_SESSION['user']['isAdmin'])
-                echo '<a target="_blank" href="./campaign.php?cid='.$cId.'" class="btn btn-primary">Open campaign</a>  ';              
+                echo '<a target="_blank" href="./campaign.php?cid=' . $cId . '" class="btn btn-primary">Open campaign</a>  ';
             echo '</div>';
             echo '</div>';
-
-      
         }
-
-
-
-        $inputDisabled = ($_SESSION['user']['isAdmin']) ? '' : 'disabled' ;
-
         ?>
 
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <!-- hotspot form -->
+                    <form id="hotspotForm">
+                        <form>
+                            <div class="modal-body">
+                                <input id="hsIdField" type="hidden" value="<?php echo $thisHotspot['id']; ?>">
+                                <input id="nftIdField" type="hidden" value="<?php echo $thisHotspot['nft']; ?>">
+                                <div class="form-group">
+                                    <label>Location</label>
+                                    <input id="locationField" type="text" class="form-control" value="<?php echo $thisHotspot['location']; ?>" required <?php echo $inputDisabled; ?>>
+                                </div>
+                                <div class="form-group">
+                                    <label>Network Name</label>
+                                    <input id="networkField" type="text" class="form-control" value="<?php echo $thisHotspot['networkName']; ?>" required <?php echo $inputDisabled; ?>>
+                                </div>
+                                <div class="form-group">
+                                    <label>Note</label>
+                                    <input id="noteField" type="text" class="form-control" value="<?php echo $thisHotspot['note']; ?>" required <?php echo $inputDisabled; ?>>
+                                </div>
+                                <div class="form-group">
+                                    <label>Validator</label>
+                                    <input id="validatorField" type="text" class="form-control" value="<?php echo $thisHotspot['validator']; ?>" <?php echo $inputDisabled; ?>>
+                                </div>
+                                <div class="form-group">
+                                    <label>NFT</label>
+                                    <input id="nftField" type="text" class="form-control" value="<?php echo $thisHotspot['nft']; ?>" required <?php echo $inputDisabled; ?>>
+                                </div>
+                            </div>
 
-        <!-- hotspot form -->
-        <form id="hotspotForm">
-            <form>
-                <div class="modal-body">
-                <input id="hsIdField" type="hidden" value="<?php echo $thisHotspot['id']; ?>">
-                <input id="nftIdField" type="hidden" value="<?php echo $thisHotspot['nft']; ?>">
-                    <div class="form-group">
-                        <label>Location</label>
-                        <input id="locationField" type="text" class="form-control" value="<?php echo $thisHotspot['location']; ?>" required <?php echo $inputDisabled;?>>
-                    </div>
-                    <div class="form-group">
-                        <label>Network Name</label>
-                        <input id="networkField" type="text" class="form-control" value="<?php echo $thisHotspot['networkName']; ?>" required <?php echo $inputDisabled;?>>
-                    </div>
-                    <div class="form-group">
-                        <label>Note</label>
-                        <input id="noteField" type="text" class="form-control" value="<?php echo $thisHotspot['note']; ?>" required <?php echo $inputDisabled;?>>
-                    </div>
-                    <div class="form-group">
-                        <label>Validator</label>
-                        <input id="validatorField" type="text" class="form-control" value="<?php echo $thisHotspot['validator']; ?>" <?php echo $inputDisabled;?>>
-                    </div>
-                    <div class="form-group">
-                        <label>NFT</label>
-                        <input id="nftField" type="text" class="form-control" value="<?php echo $thisHotspot['nft']; ?>" required <?php echo $inputDisabled;?>>
-                    </div>
+                            <?php
+                            if ($_SESSION['user']['isAdmin']) {
+                                echo '<div class="modal-footer">
+                                    <div id="spinner" class="spinner-border text-primary" role="status" style="display: none;">
+                                        <span class="sr-only"></span>
+                                    </div>
+                                    <button type="button" id="btnCancel" class="btn btn-secondary" tabindex="2">Cancel</button>
+                                    <button type="submit" id="btnSave" value="btnSave" class="btn btn-primary" translate="1">Save</button>
+                                </div>';
+                            }
+                            ?>
+
+                        </form>
+                    </form>
+                    <!-- hotspot form end -->
                 </div>
-
-                <?php
-                    if ($_SESSION['user']['isAdmin'])
-                    {
-                        echo '<div class="modal-footer">
-                            <div id="spinner" class="spinner-border text-primary" role="status" style="display: none;">
+                <!-- end column 1 -->
+                <div class="col">
+                    <form id="changeOwnerForm" <?php
+                                                if (!$_SESSION['user']['isAdmin']) {
+                                                    echo ' style="display:none;"';
+                                                }
+                                                ?>>
+                        <div class="modal-body">
+                            <div id="liveAlertPlaceholder2"></div>
+                            <h4>Change Owner</h4>
+                            <div class="form-group">
+                                <label>Current Owner Address</label>
+                                <input id="ownerAddress" type="text" class="form-control" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>Current Owner Name</label>
+                                <input id="ownerName" type="text" class="form-control" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>New Owner</label>
+                                <select id="newOwner" class="form-select" aria-label="Select new owner" required>
+                                    <option value="" selected>Choose a user</option>
+                                    <?php
+                                    //perform query 
+                                    $result = $conn->query("SELECT name, algorandAddress FROM User WHERE isEnabled = true AND isHotspotter = true ORDER BY name");
+                                    if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo '<option id="' . $row['algorandAddress'] . '" value="' . $row['algorandAddress'] . '">' . $row['name'] . '</option>';
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div id="spinner3" class="spinner-border text-primary" role="status" style="display: none;">
                                 <span class="sr-only"></span>
                             </div>
-                            <button type="button" id="btnCancel" class="btn btn-secondary" tabindex="2">Cancel</button>
-                            <button type="submit" id="btnSave" value="btnSave" class="btn btn-primary" translate="1">Save</button>
-                        </div>';
-                    }
-                ?>
-                
-            </form>
-        </form>
-        <!-- hotspot form end -->
+                            <button type="submit" id="btnSave2" value="btnSave2" class="btn btn-primary" translate="1">Change</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- end column 2 -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+
         
+
+
         <!-- <form>
             <h4>Nft Data</h4>
             <?php
-                //$l = $algoExplorerAssetUrlPrefix.$thisHotspot['nft'];
-                //echo  "<p><a target='_blank' href='".$l."'>View on AlgoExplorer</a></p>";
+            //$l = $algoExplorerAssetUrlPrefix.$thisHotspot['nft'];
+            //echo  "<p><a target='_blank' href='".$l."'>View on AlgoExplorer</a></p>";
             ?>
 
             <div id="spinner2" class="spinner-border text-primary" role="status">
@@ -171,55 +213,13 @@
             </div>
         </form> -->
 
+
         <hr>
-
-        <form id="changeOwnerForm" <?php 
-        if (!$_SESSION['user']['isAdmin'])
-        {
-            echo ' style="display:none;"';
-        }
-        ?>>
-            <div class="modal-body">
-                <div id="liveAlertPlaceholder2"></div>
-                <h4>Change Owner</h4>
-                <div class="form-group">
-                    <label>Current Owner Address</label>
-                    <input id="ownerAddress" type="text" class="form-control" disabled>
-                </div>
-                <div class="form-group">
-                    <label>Current Owner Name</label>
-                    <input id="ownerName" type="text" class="form-control" disabled>
-                </div>
-                <div class="form-group">
-                    <label>New Owner</label>
-                    <select  id="newOwner" class="form-select" aria-label="Select new owner" required>
-                        <option value="" selected>Choose a user</option>
-                             <?php
-                                 //perform query 
-                                $result = $conn->query("SELECT name, algorandAddress FROM User WHERE isEnabled = true AND isHotspotter = true ORDER BY name");
-                                if ($result->num_rows > 0) 
-                                {
-                                    while ($row = $result->fetch_assoc()) 
-                                    {
-                                        echo '<option id="'.$row['algorandAddress'].'" value="'.$row['algorandAddress'].'">'.$row['name'].'</option>';
-                                    }
-                                } 
-                            ?>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div id="spinner3" class="spinner-border text-primary" role="status" style="display: none;">
-                    <span class="sr-only"></span>
-                </div>
-                <button type="submit" id="btnSave2" value="btnSave2" class="btn btn-primary" translate="1">Change</button>
-            </div>
-        </form>
-
-
-       <?php $conn->close(); ?>
+        
+        <?php $conn->close(); ?>
 
     </div>
     <!--Container Main end-->
 </body>
+
 </html>
