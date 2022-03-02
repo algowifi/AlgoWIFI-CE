@@ -7,6 +7,7 @@ adminCheck();
 
 <head>
     <title>Users List</title>
+    <link rel="icon" href="./img/favicon_algowifi.png" type="image/x-icon" />
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 
@@ -23,7 +24,8 @@ adminCheck();
 
     <!-- datatables -->
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"></link>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    </link>
     <script src="js/users.js"></script>
 </head>
 
@@ -35,7 +37,7 @@ adminCheck();
 
 
     <?php
-        printMenu();
+    printMenu();
     ?>
 
     <!--Container Main start-->
@@ -44,34 +46,34 @@ adminCheck();
         <h4 id="containerTitle">Users List</h4>
         <p><button type="button" id="btnNew" class="btn btn-primary"><i class="bx bx-user-plus"></i></button></p>
         <div style="overflow-x:auto;">
-        <table id="example" class="display" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>AWIFI</th>
-                    <th>Algo</th>
-                    <th>Address</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Id</th>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>AWIFI</th>
-                    <th>Algo</th>
-                    <th>Address</th>
-                </tr>
-            </tfoot>
-        </table>
+            <table id="example" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Type</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>AWIFI</th>
+                        <th>Algo</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Id</th>
+                        <th>Type</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>AWIFI</th>
+                        <th>Algo</th>
+                        <th>Address</th>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
-        
+
 
         <!-- Insertion form -->
         <form id="insertionForm" style="display:none;">

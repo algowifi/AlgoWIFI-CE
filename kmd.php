@@ -1,9 +1,9 @@
 <?php
-    include 'check.php'; 
-    include('sdk/algorand.php');
-    include('./scriptsPHP/algoConfig.php');
+include 'check.php';
+include('sdk/algorand.php');
+include('./scriptsPHP/algoConfig.php');
 
-    adminCheck();
+adminCheck();
 
 ?>
 
@@ -13,6 +13,7 @@
 
 <head>
     <title>Kmd for administrators</title>
+    <link rel="icon" href="./img/favicon_algowifi.png" type="image/x-icon" />
     <meta charset='utf-8'>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,6 +30,7 @@
     <script type="text/javascript" src="./js/kmd.js"></script>
 
 </head>
+
 <body id="body-pd" class="body-pd">
     <header class="header body-pd" id="header">
         <div class="header_toggle"> <i class='bx bx-menu bx-x' id="header-toggle"></i> </div>
@@ -36,153 +38,154 @@
     </header>
 
     <?php
-         printMenu();
+    printMenu();
     ?>
     <!--Container Main start-->
     <div class="height-100 bg-light">
-    <input type="text" hidden id="awifiAssetId" value="<?php echo $algowifiAssetId; ?>">
+        <input type="text" hidden id="awifiAssetId" value="<?php echo $algowifiAssetId; ?>">
 
-    <form>
-        <div class="container">
-            <div class="row">
-            <div class="col">
-                From
-                </div>
-                
-                <div class="col">
-                To
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <input id="from" placeholder="Address" type="text" class="form-control" required>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <input id="to" placeholder="Address" type="text" class="form-control" required>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label>Algo</label>
-                        <input id="fromAlgoField" type="text" class="form-control" disabled>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label>Algo</label>
-                        <input id="toAlgoField" type="text" class="form-control" disabled>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label>AWIFI</label>
-                        <input id="fromAwifiField" type="text" class="form-control" disabled>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label>AWIFI</label>
-                        <input id="toAwifiField" type="text" class="form-control" disabled>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                <div class="form-group">
-                        <label>Assets (id : amount)</label>
-                        <select  id="fromAssetsField" class="form-select" size="10" disabled>
-
-                        </select>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label>Assets (id : amount)</label>
-                        <select  id="toAssetsField" class="form-select" size="10" disabled>
-                    
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label>Transfer</label>
-                        <select  id="transferType" class="form-select" required></select>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label>Asset ID to transfer</label>
-                        <input id="transferAssetId" type="text" class="form-control" required>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label>Amount to transfer (micro)</label>
-                        <input id="transferAmount" type="number" class="form-control" required>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="modal-footer">
-                        <div id="spinner" class="spinner-border text-primary" role="status" style="display: none;">
-                            <span class="sr-only"></span>
-                        </div>
-                        <button type="reset" id="btnReset" class="btn btn-secondary" tabindex="2">Reset</button>
-                        <button type="submit" id="btnSave" value="btnSave" class="btn btn-primary" translate="1">Perform transaction</button>
-                    </div>
-                </div>
-        
-            </div>
-
-
-
-
-
-
-
-
-
-            
-
-
-
-
-        </div>
-    </form>
-
-
-    <div id="liveAlertPlaceholder"></div>
-
-
-    <div class="container">
-    <div class="row">
-        <div class="col">
         <form>
-        <div class="form-group">
-            <label for="logTxtArea">Log</label>
-            <textarea class="form-control" id="logTxtArea" rows="3"></textarea>
-        </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        From
+                    </div>
+
+                    <div class="col">
+                        To
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <input id="from" placeholder="Address" type="text" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <input id="to" placeholder="Address" type="text" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Algo</label>
+                            <input id="fromAlgoField" type="text" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Algo</label>
+                            <input id="toAlgoField" type="text" class="form-control" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>AWIFI</label>
+                            <input id="fromAwifiField" type="text" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label>AWIFI</label>
+                            <input id="toAwifiField" type="text" class="form-control" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Assets (id : amount)</label>
+                            <select id="fromAssetsField" class="form-select" size="10" disabled>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Assets (id : amount)</label>
+                            <select id="toAssetsField" class="form-select" size="10" disabled>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Transfer</label>
+                            <select id="transferType" class="form-select" required></select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Asset ID to transfer</label>
+                            <input id="transferAssetId" type="text" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Amount to transfer (micro)</label>
+                            <input id="transferAmount" type="number" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="modal-footer">
+                            <div id="spinner" class="spinner-border text-primary" role="status" style="display: none;">
+                                <span class="sr-only"></span>
+                            </div>
+                            <button type="reset" id="btnReset" class="btn btn-secondary" tabindex="2">Reset</button>
+                            <button type="submit" id="btnSave" value="btnSave" class="btn btn-primary" translate="1">Perform transaction</button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
         </form>
+
+
+        <div id="liveAlertPlaceholder"></div>
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <form>
+                        <div class="form-group">
+                            <label for="logTxtArea">Log</label>
+                            <textarea class="form-control" id="logTxtArea" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    </div>
-    </div>
 
 
-    </div>    
+    </div>
     <!--Container Main end-->
 
 
 
 </body>
+
 </html>

@@ -5,8 +5,10 @@ include './scriptsPHP/algoConfig.php';
 ?>
 
 <html lang="en">
+
 <head>
     <title>Home</title>
+    <link rel="icon" href="./img/favicon_algowifi.png" type="image/x-icon" />
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <!--Bootstrap & jQuery-->
@@ -20,71 +22,67 @@ include './scriptsPHP/algoConfig.php';
     <script type="text/javascript" src="./js/home.js"></script>
     <link rel="stylesheet" href="./css/menu.css">
 </head>
+
 <body id="body-pd" class="body-pd">
-    
+
     <header class="header body-pd" id="header">
         <div class="header_toggle"> <i class='bx bx-menu bx-x' id="header-toggle"></i> </div>
         <div class="header_img"> <img src="./img/Alogo.png" alt=""> </div>
     </header>
 
     <?php
-         printMenu();
+    printMenu();
     ?>
     <!--Container Main start-->
     <div class="container height-100 bg-light">
         <h4>Welcome <?php
-        echo((($_SESSION['user']['isAdmin'] == true) ? "Admin " : "User ").$_SESSION['user']['name']);?></h4>
+                    echo ((($_SESSION['user']['isAdmin'] == true) ? "Admin " : "User ") . $_SESSION['user']['name']); ?></h4>
         <?php
-            if ($_SESSION['user']['isAdmin'])
-            {
-                //print platform Data
-                echo "<hr>";
-                echo "<h5>Platform Data</h5>";
-                echo "<p>Scan to follow the platform account on Algorand mobile App</p><img src=";
-                echo "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=".$mainAccountAddress;
-                echo ' title="Algorand Address QR-Code" /><br>';
+        if ($_SESSION['user']['isAdmin']) {
+            //print platform Data
+            echo "<hr>";
+            echo "<h5>Platform Data</h5>";
+            echo "<p>Scan to follow the platform account on Algorand mobile App</p><img src=";
+            echo "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" . $mainAccountAddress;
+            echo ' title="Algorand Address QR-Code" /><br>';
 
-                $return=$algorand->get("v1","account",$mainAccountAddress);
-                $return_array=json_decode($return['response']);
-                $algoWifiAmount=$return_array->{'assets'}->{$algowifiAssetId}->{'amount'} / 10000;
-                $algoAmount=$return_array->{'amount'} / 1000000;
-            
-                //print platform account address
-                echo "<p><a target='_blank' href='".$algoExplorerUrlPrefix.$mainAccountAddress."'>".$mainAccountAddress."</a></p>";
-                echo "<p>Algo balance: ".number_format($algoAmount, 3, '.', ',')."</p>";
-                echo "<p>AWIFI balance: ".number_format($algoWifiAmount, 4, '.', ',')."</p>";
-            }
-            else 
-            {
-                $return=$algorand->get("v1","account",$_SESSION['user']['algorandAddress']);
-                $return_array=json_decode($return['response']);
-                $algoWifiAmount=$return_array->{'assets'}->{$algowifiAssetId}->{'amount'} / 10000;
-                $algoAmount=$return_array->{'amount'} / 1000000;
-                echo "<h5>Balance</h5>";
+            $return = $algorand->get("v1", "account", $mainAccountAddress);
+            $return_array = json_decode($return['response']);
+            $algoWifiAmount = $return_array->{'assets'}->{$algowifiAssetId}->{'amount'} / 10000;
+            $algoAmount = $return_array->{'amount'} / 1000000;
 
-                echo "<p>AWIFI: ".number_format($algoWifiAmount, 4, '.', ',')."</p>";
-                if ($_SESSION['user']['isLocation'])
-                {
-                    echo "<p>Algo: ".number_format($algoAmount, 3, '.', ',')."</p>";
-                }
+            //print platform account address
+            echo "<p><a target='_blank' href='" . $algoExplorerUrlPrefix . $mainAccountAddress . "'>" . $mainAccountAddress . "</a></p>";
+            echo "<p>Algo balance: " . number_format($algoAmount, 3, '.', ',') . "</p>";
+            echo "<p>AWIFI balance: " . number_format($algoWifiAmount, 4, '.', ',') . "</p>";
+        } else {
+            $return = $algorand->get("v1", "account", $_SESSION['user']['algorandAddress']);
+            $return_array = json_decode($return['response']);
+            $algoWifiAmount = $return_array->{'assets'}->{$algowifiAssetId}->{'amount'} / 10000;
+            $algoAmount = $return_array->{'amount'} / 1000000;
+            echo "<h5>Balance</h5>";
+
+            echo "<p>AWIFI: " . number_format($algoWifiAmount, 4, '.', ',') . "</p>";
+            if ($_SESSION['user']['isLocation']) {
+                echo "<p>Algo: " . number_format($algoAmount, 3, '.', ',') . "</p>";
             }
+        }
         ?>
 
         <hr>
 
-        <?php 
-        if (!$_SESSION['user']['isLocation']) 
-        {
+        <?php
+        if (!$_SESSION['user']['isLocation']) {
             echo '<h5 id="metricsTitle">Loading metrics...</h5>
             <div id="spinner" class="spinner-border text-primary" role="status">
             <span class="sr-only"></span>
             </div>';
         }
-         ?>
-        
+        ?>
+
 
         <div class="row gap-3" <?php if ($_SESSION['user']['isLocation']) echo 'style="display:none;"'; ?>>
-           
+
             <div class="col card" <?php if (!$_SESSION['user']['isAdmin']) echo 'style="display:none;"'; ?>>
                 <div class="card-body">
                     <h5 class="card-title">Users</h5>
@@ -97,16 +95,17 @@ include './scriptsPHP/algoConfig.php';
                     <a href="./users.php" class="btn btn-primary">Show <span id="numTotUsers"></span> users</a>
                 </div>
             </div>
-            
+
             <div class="col card" <?php if (!($_SESSION['user']['isAdmin'] || $_SESSION['user']['isHotspotter'])) echo 'style="display:none;"'; ?>>
                 <div class="card-body">
                     <h5 class="card-title">Hotspots</h5>
                     <ul class="card-text">
                         <li>Hotspots <span id="numHotspots"></span></li>
                     </ul>
-                    <a href="./hotspots.php" class="btn btn-primary">Show <span id="numHotspots2"></span> hotspots</a>                </div>
+                    <a href="./hotspots.php" class="btn btn-primary">Show <span id="numHotspots2"></span> hotspots</a>
+                </div>
             </div>
-            
+
             <div class="col card" <?php if (!($_SESSION['user']['isAdmin'] || $_SESSION['user']['isPublisher'])) echo 'style="display:none;"'; ?>>
                 <div class="card-body">
                     <h5 class="card-title">Campaigns</h5>
@@ -114,23 +113,25 @@ include './scriptsPHP/algoConfig.php';
                         <li>On Campaigns <span id="numEnabledCampaigns"></span></li>
                         <li>Off Campaigns <span id="numDisabledCampaigns"></span></li>
                     </ul>
-                    <a href="./campaigns.php" class="btn btn-primary">Show <span id="numTotCampaigns"></span> campaigns</a>                </div>
+                    <a href="./campaigns.php" class="btn btn-primary">Show <span id="numTotCampaigns"></span> campaigns</a>
+                </div>
             </div>
-            
+
             <div class="col card">
                 <div class="card-body">
                     <h5 class="card-title">Views and Earnings</h5>
                     <ul class="card-text">
-                    <li>Tot views: <span id="totViews"></span></li>
-                    <li <?php if (!($_SESSION['user']['isAdmin'] || $_SESSION['user']['isPublisher'])) echo 'style="display:none;"'; ?>>AWIFI sent: <span id="spentAWIFI"></span></li>
-                    <li <?php if (!($_SESSION['user']['isAdmin'] || $_SESSION['user']['isHotspotter'])) echo 'style="display:none;"'; ?>>AWIFI received: <span id="receivedAWIFI"></span></li>
+                        <li>Tot views: <span id="totViews"></span></li>
+                        <li <?php if (!($_SESSION['user']['isAdmin'] || $_SESSION['user']['isPublisher'])) echo 'style="display:none;"'; ?>>AWIFI sent: <span id="spentAWIFI"></span></li>
+                        <li <?php if (!($_SESSION['user']['isAdmin'] || $_SESSION['user']['isHotspotter'])) echo 'style="display:none;"'; ?>>AWIFI received: <span id="receivedAWIFI"></span></li>
                     </ul>
                 </div>
             </div>
 
-        </div> 
+        </div>
 
     </div>
     <!--Container Main end-->
 </body>
+
 </html>

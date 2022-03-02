@@ -10,6 +10,7 @@ if (isset($_SESSION['user']))
 ?>
 <head>
     <title>Autenticazione</title>
+    <link rel="icon" href="./img/favicon_algowifi.png" type="image/x-icon" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/login.css">

@@ -36,6 +36,7 @@ $inputDisabled = ($_SESSION['user']['isAdmin']) ? '' : 'disabled';
 
 <head>
     <title>Hotspot Page</title>
+    <link rel="icon" href="./img/favicon_algowifi.png" type="image/x-icon" />
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <!--Bootstrap & jQuery-->
@@ -63,7 +64,7 @@ $inputDisabled = ($_SESSION['user']['isAdmin']) ? '' : 'disabled';
     <div class="height-100 bg-light">
         <div id="liveAlertPlaceholder"></div>
 
-        <h4>Hotspot <?php echo $thisHotspot['id']; ?></h4>
+        <h4>Hotspot <?php echo $thisHotspot['networkName']; ?></h4>
         <p>Tot views: <?php echo $totViews; ?></p>
 
 
@@ -194,7 +195,7 @@ $inputDisabled = ($_SESSION['user']['isAdmin']) ? '' : 'disabled';
         </div>
         <!-- end container -->
 
-        
+
 
 
         <!-- <form>
@@ -215,7 +216,7 @@ $inputDisabled = ($_SESSION['user']['isAdmin']) ? '' : 'disabled';
 
 
         <hr>
-        
+
         <?php $conn->close(); ?>
 
     </div>
