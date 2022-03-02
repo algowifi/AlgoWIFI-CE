@@ -103,10 +103,10 @@
                     "apar" => array(
                         "an" => $nftName,
                         "au" => "algowifi.com",
-                        "c" => $newOwner,
+                        "c" => $mainAccountAddress,
                         "dc" => 0,
-                        "f" => $newOwner,
-                        "m" => $newOwner,
+                        "f" => $mainAccountAddress,
+                        "m" => $mainAccountAddress,
                         "r" => $newOwner,
                         "t" => 1,
                         "un" => "AWIFISPT"
@@ -156,7 +156,7 @@
         }
     
 
-        sleep(10);
+        sleep(15);
 
         //4) GET NFT IDENTIFIER
         //4.1) get assets
