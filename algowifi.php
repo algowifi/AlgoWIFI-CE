@@ -153,7 +153,7 @@ if ($performTransactions)
     //Transaction 3 : payment to reserve address
     $transactions[]=array(
         "txn" => array(
-            "aamt" => $hotspotFee,
+            "aamt" => $reserveFee,
             "type" => "axfer", //Tx Type
             "fee" => 1000, //Fee
             "fv" => $lastround, //Take the last round
