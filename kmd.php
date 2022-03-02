@@ -120,7 +120,7 @@ adminCheck();
                     <div class="col">
                         <div class="form-group">
                             <label>Transfer</label>
-                            <select id="transferType" class="form-select" required></select>
+                            <select id="transferType" class="form-select"></select>
                         </div>
                     </div>
                     <div class="col">
@@ -179,6 +179,10 @@ adminCheck();
                 </div>
             </div>
         </div>
+
+        <br>
+        <p><button type="button" id="btnNew" class="btn btn-primary"><i class="bx bx-plus"></i> Generate new Account</button></p>
+
 
 
     </div>
