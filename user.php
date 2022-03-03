@@ -81,18 +81,17 @@ if ($user['isLocation']) {
     <div class="height-100 bg-light">
         <div id="liveAlertPlaceholder"></div>
 
-        <h4><span id="userTypeField"><?php echo $userType; ?></span> <span id="userNameField"><?php echo ($user['name']); ?></span></h4>
-        <h5><span id="userBalanceField"><?php echo (number_format($algoWifiAmount, 4, '.', ',')); ?></span> AWIFI, <span id="userAlgoBalanceField"><?php echo (number_format($algoAmount, 3, '.', ',')); ?></span> Algo</h5>
-        <p>
-            <button type="button" id="btnNew" class="btn btn-primary"><i class="bx bx-money-withdraw"></i></button>
-        <div id="containerTitle"></div>
-        </p>
 
-        <!-- user form -->
-        <form id="userForm">
-            <form>
-                <div class="modal-body">
-                    <input id="userIdField" type="hidden" value="<?php echo $user['id']; ?>">
+        <div class="container">
+            <div class="row">
+                <div class="col" style="overflow-x: auto;">
+                    <h4><span id="userTypeField"><?php echo $userType; ?></span> <span id="userNameField"><?php echo ($user['name']); ?></span></h4>
+                    <h5><span id="userBalanceField"><?php echo (number_format($algoWifiAmount, 4, '.', ',')); ?></span> AWIFI, <span id="userAlgoBalanceField"><?php echo (number_format($algoAmount, 3, '.', ',')); ?></span> Algo</h5>
+                    <p>
+                        <button type="button" id="btnNew" class="btn btn-primary"><i class="bx bx-money-withdraw"></i></button>
+                    <div id="containerTitle"></div>
+                    </p>
+                    <div id="QRBox">
                     <p>Scan to follow this account on Algorand mobile App</p>
                     <img src=<?php echo "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" . $user['algorandAddress']; ?> title="Algorand Address QR-Code" />
                     <?php
@@ -100,58 +99,72 @@ if ($user['isLocation']) {
                     ?>
 
                     <br>
-                    <div class="form-group">
-                        <label>Name</label>
-                        <input id="nameField" type="text" class="form-control" value="<?php echo $user['name']; ?>" required>
                     </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input id="emailField" type="email" class="form-control" value="<?php echo $user['email']; ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Note</label>
-                        <input id="noteField" type="text" class="form-control" value="<?php echo $user['note']; ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Address</label>
-                        <input id="addressField" type="text" class="form-control" value="<?php echo $user['address']; ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Algorand Address: <a target='_blank' href='<?php echo $algoExplorerUrlPrefix . $user['algorandAddress']; ?>'>View in algoexplorer</a></label>
-                        <input id="algorandAddressField" type="text" class="form-control" value="<?php echo $user['algorandAddress']; ?>" required>
-                    </div>
-                    <div class="form-group" style="display: none;">
-                        <label>NFT</label>
-                        <input id="nftField" type="text" class="form-control" value="<?php echo $user['nft']; ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input id="passwordField" type="text" class="form-control" value="<?php echo $user['password']; ?>" required>
-                    </div>
-                    <div class="form-check form-switch">
-                        <label class="form-check-label" for="isEnabledField">isEnabled</label>
-                        <input id="isEnabledField" type="checkbox" class="form-check-input" <?php if ($user['isEnabled']) echo 'checked' ?>>
-                    </div>
-                    <div class="form-check form-switch">
-                        <label class="form-check-label" for="isAdminField">isAdmin</label>
-                        <input id="isAdminField" type="checkbox" class="form-check-input" <?php if ($user['isAdmin']) echo 'checked' ?>>
-                    </div>
+
                 </div>
-                <div class="modal-footer">
-                    <div id="spinner" class="spinner-border text-primary" role="status" style="display: none;">
-                        <span class="sr-only"></span>
-                    </div>
-                    <?php
-                    if ($_SESSION['user']['id'] != $_GET['userid']) {
-                        //echo '<button type="button" id="btnRemove" class="btn btn-danger">Remove user</button>';
-                    }
-                    ?>
-                    <button type="button" id="btnCancel" class="btn btn-secondary" tabindex="2">Cancel</button>
-                    <button type="submit" id="btnSave" value="btnSave" class="btn btn-primary" translate="1">Save</button>
+                <div class="col">
+                    <!-- user form -->
+                    <form id="userForm">
+                        <form>
+                            <div class="modal-body">
+                                <input id="userIdField" type="hidden" value="<?php echo $user['id']; ?>">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input id="nameField" type="text" class="form-control" value="<?php echo $user['name']; ?>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input id="emailField" type="email" class="form-control" value="<?php echo $user['email']; ?>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Note</label>
+                                    <input id="noteField" type="text" class="form-control" value="<?php echo $user['note']; ?>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <input id="addressField" type="text" class="form-control" value="<?php echo $user['address']; ?>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Algorand Address: <a target='_blank' href='<?php echo $algoExplorerUrlPrefix . $user['algorandAddress']; ?>'>View in algoexplorer</a></label>
+                                    <input id="algorandAddressField" type="text" class="form-control" value="<?php echo $user['algorandAddress']; ?>" required>
+                                </div>
+                                <div class="form-group" style="display: none;">
+                                    <label>NFT</label>
+                                    <input id="nftField" type="text" class="form-control" value="<?php echo $user['nft']; ?>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input id="passwordField" type="text" class="form-control" value="<?php echo $user['password']; ?>" required>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <label class="form-check-label" for="isEnabledField">isEnabled</label>
+                                    <input id="isEnabledField" type="checkbox" class="form-check-input" <?php if ($user['isEnabled']) echo 'checked' ?>>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <label class="form-check-label" for="isAdminField">isAdmin</label>
+                                    <input id="isAdminField" type="checkbox" class="form-check-input" <?php if ($user['isAdmin']) echo 'checked' ?>>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div id="spinner" class="spinner-border text-primary" role="status" style="display: none;">
+                                    <span class="sr-only"></span>
+                                </div>
+                                <?php
+                                if ($_SESSION['user']['id'] != $_GET['userid']) {
+                                    //echo '<button type="button" id="btnRemove" class="btn btn-danger">Remove user</button>';
+                                }
+                                ?>
+                                <button type="button" id="btnCancel" class="btn btn-secondary" tabindex="2">Cancel</button>
+                                <button type="submit" id="btnSave" value="btnSave" class="btn btn-primary" translate="1">Save</button>
+                            </div>
+                        </form>
+                    </form>
+                    <!-- user form end -->
                 </div>
-            </form>
-        </form>
-        <!-- user form end -->
+            </div>
+        </div>
+
+
 
         <!-- Add awifi form -->
         <form id="addAwifiForm" style="display:none;">

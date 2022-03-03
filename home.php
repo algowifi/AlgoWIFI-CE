@@ -39,6 +39,10 @@ include './scriptsPHP/algoConfig.php';
                     echo ((($_SESSION['user']['isAdmin'] == true) ? "Admin " : "User ") . $_SESSION['user']['name']); ?></h4>
         <?php
         if ($_SESSION['user']['isAdmin']) {
+
+            echo '<div class="container">';
+            echo '<div class="row">';
+            echo '<div class="col" style="  overflow-x: auto; ">';
             //print platform Data
             echo "<hr>";
             echo "<h5>Platform Data</h5>";
@@ -55,6 +59,29 @@ include './scriptsPHP/algoConfig.php';
             echo "<p><a target='_blank' href='" . $algoExplorerUrlPrefix . $mainAccountAddress . "'>" . $mainAccountAddress . "</a></p>";
             echo "<p>Algo balance: " . number_format($algoAmount, 3, '.', ',') . "</p>";
             echo "<p>AWIFI balance: " . number_format($algoWifiAmount, 4, '.', ',') . "</p>";
+
+            echo '</div>';
+            echo '<div class="col" style="  overflow-x: auto; ">';
+            //print reserve Data
+            echo "<hr>";
+            echo "<h5>Reserve Data</h5>";
+            echo "<p>Scan to follow the reserve account on Algorand mobile App</p><img src=";
+            echo "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" . $mainReserveAddress;
+            echo ' title="Algorand Address QR-Code" /><br>';
+
+            $return = $algorand->get("v1", "account", $mainReserveAddress);
+            $return_array = json_decode($return['response']);
+            $algoWifiAmount = $return_array->{'assets'}->{$algowifiAssetId}->{'amount'} / 10000;
+            $algoAmount = $return_array->{'amount'} / 1000000;
+
+            //print reserve account address
+            echo "<p><a target='_blank' href='" . $algoExplorerUrlPrefix . $mainReserveAddress . "'>" . $mainReserveAddress . "</a></p>";
+            echo "<p>Algo balance: " . number_format($algoAmount, 3, '.', ',') . "</p>";
+            echo "<p>AWIFI balance: " . number_format($algoWifiAmount, 4, '.', ',') . "</p>";
+
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
         } else {
             $return = $algorand->get("v1", "account", $_SESSION['user']['algorandAddress']);
             $return_array = json_decode($return['response']);
@@ -67,6 +94,10 @@ include './scriptsPHP/algoConfig.php';
                 echo "<p>Algo: " . number_format($algoAmount, 3, '.', ',') . "</p>";
             }
         }
+
+
+
+
         ?>
 
         <hr>
