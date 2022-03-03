@@ -70,9 +70,9 @@ if (!$missingNFT) {
     $relationId = $row['relation_id'];
     $linkorigesc = $row['landingUrl'];
     $id_campaign = $row['id'];
-    $combined = "Mac : $mac - Location  : $server - $message"; // Note to blockchain
+    // $combined = "Mac : $mac - Location  : $server - $message"; // Note to blockchain
 
-    //build a json note
+    //build a json note for blockchain
     $output['Mac'] = $mac;
     $output['Location'] = $server. " - ".$message;
     $output['CampaignName'] = $message;
