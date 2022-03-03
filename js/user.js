@@ -131,6 +131,7 @@ var campaignsTable = $('#campaignsTable').DataTable({
      $('#btnNew').click(function() 
      {
         $("#btnNew").hide();
+        $("#QRBox").hide();
         $('#addAwifiForm').show();
         $('#userForm').hide();
         $('#containerTitle').html("Transfer AWIFI to this user");
@@ -139,6 +140,7 @@ var campaignsTable = $('#campaignsTable').DataTable({
     function showUserForm()
     {
         $("#btnNew").show();
+        $("#QRBox").show();
         $('#addAwifiForm').hide();
         $('#addAwifiForm').trigger("reset");
         $('#userForm').show();
