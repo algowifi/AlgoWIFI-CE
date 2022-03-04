@@ -9,6 +9,7 @@ allows the owners of public and / or private WIFI Hot-Spots offering internet co
 
 * S.O. Linux All version, tested on Ubuntu 18.04+.
 * Server LAMP, Php Ver. 7.2+
+* Enable **CORS on  Apache**  
 * Algorand Node, algod, kmd. 
 * Optional Algo Indexer or using API AlgoExplorer.
 * Php-sdk Algorand - FFSolutions, https://github.com/ffsolutions/php-algorand-sdk
