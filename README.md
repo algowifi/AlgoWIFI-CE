@@ -17,7 +17,7 @@ allows the owners of public and / or private WIFI Hot-Spots offering internet co
 
 # Hardware for Access Point:
 
-* Mikrotik Router  ALL Version ( wireless and wired )
+* Mikrotik Router ALL type. ( wireless and wired )
 * UBNT Unifi in testing.
 * AP based on OpenWRT in testing.
 * Application for Hot-Spot Management in testing.
