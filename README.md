@@ -1,7 +1,16 @@
 # AlgoWIFI - where Ads meets blockchain. 
 ![logo](/img/algowifiLogo.png)
 
+**AlgoWIFI for Hot-Spot**
+
 allows the owners of public and / or private WIFI Hot-Spots offering internet connections, the enhancement of accesses through an advertising circuit based on the **Algorand blockchain**.
+
+
+
+**AlgoWIFI for Web 3.0**
+
+allows owner of web-site to make revenues from visit.
+
 
 
 **Requirement:**
