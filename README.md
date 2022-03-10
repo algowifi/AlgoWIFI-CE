@@ -11,6 +11,9 @@ allows the owners of public and / or private WIFI Hot-Spots offering internet co
 
 allows owner of web-site to make revenues from visit.
 
+**AlgoWIFI Counter**
+Certification of views.
+
 
 
 **Requirement:**
