@@ -9,10 +9,10 @@ allows the owners of public and / or private WIFI Hot-Spots offering internet co
 
 **AlgoWIFI for Web 3.0**
 
-allows owner of web-site to make revenues from visit.
+* allows owner of web-site to make revenues from visit.
 
 **AlgoWIFI Counter**
-Certification of views.
+* Certification of views.
 
 
 
