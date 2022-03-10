@@ -14,6 +14,11 @@ allows the owners of public and / or private WIFI Hot-Spots offering internet co
 **AlgoWIFI Counter**
 * Certification of views.
 
+**AlgoWIFI for Qr-Code**
+* Dynamic qr-code with certification on blockchain.
+
+
+
 
 
 **Requirement:**
