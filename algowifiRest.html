@@ -11,7 +11,7 @@
 
     <script type="text/javascript" crossorigin="anonymous">
         var code = ; //TODO: SET OWN CODE!!
-        $.post("https://www.algowifi.com/algowifi/algowifiRest.php", { identity: code }).done(function (data) {
+        $.post("https://algowifi.com/algowifi/algowifiRest.php", { identity: code }).done(function (data) {
             $("#campaignImage").attr("src", data['image']);
         });
     </script>
