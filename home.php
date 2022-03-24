@@ -19,8 +19,12 @@ include './scriptsPHP/algoConfig.php';
     <!--Menu-->
     <link href='https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css' rel='stylesheet'>
     <script type="text/javascript" src="./js/menu.js"></script>
-    <script type="text/javascript" src="./js/home.js"></script>
     <link rel="stylesheet" href="./css/menu.css">
+    <!-- Chart js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- own js -->
+    <script type="text/javascript" src="./js/home.js"></script>
+    <script type="text/javascript" src="./js/graph.js"></script>
 </head>
 
 <body id="body-pd" class="body-pd">
@@ -160,6 +164,22 @@ include './scriptsPHP/algoConfig.php';
             </div>
 
         </div>
+
+        <?php
+            if ($_SESSION['user']['isAdmin'])
+            {
+                echo '<div class="row gap-3">
+                <div class="col card">
+                    <div class="card-body">
+                        <h5 class="card-title">Last 7 days transactions</h5>
+                        <canvas id="myChart" class="card-text" ></canvas>
+                    </div>
+                </div>
+                </div>';
+            }
+        ?>
+
+       
 
     </div>
     <!--Container Main end-->
