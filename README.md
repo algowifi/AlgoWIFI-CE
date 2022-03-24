@@ -49,6 +49,7 @@ allows the owners of public and / or private WIFI Hot-Spots offering internet co
   - add **$reserveFee** in routine on algowifi.php
   - add Atomic Transfer for **Reserve address** in algowifi.php
   - add **algowifiRest.php**
+  - add **algowifiCounter.html
   
 
 
