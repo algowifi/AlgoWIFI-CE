@@ -25,7 +25,6 @@ if ($result->num_rows > 0) {
         $hotspots[$i++] = $row;
     }
 }
-$conn->close();
 
 $allowEditing = (($_SESSION['user']['isAdmin']) || ($_SESSION['user']['isPublisher'] && !$thisCapaign['isActive']));
 $inputDisabled = $allowEditing ? '' : 'disabled';
@@ -80,6 +79,28 @@ $isActiveDisabled = ($_SESSION['user']['isAdmin']) ? '' : 'disabled';
         <?php
         if ($_SESSION['user']['isAdmin']) {
             echo '<input id="isAdm" value="1" type="hidden">';
+            echo '<p><button type="button" id="btnNew" class="btn btn-primary"><i class="bx bxs-plus-square"></i></button></p>';
+
+            echo '<form id="insertionForm" style="display:none;">';
+            echo '<div class="form-group">';
+            echo '<label>Select hotspots to add:</label>';
+            echo '<select id="newHotspots" class="form-select" multiple size="10" aria-label="Choose your favorite hotspots" required>';
+            $result = $conn->query("SELECT location, id FROM Hotspot ORDER BY location");
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo '<option value="' . $row['id'] . '">' . $row['location'] . '</option>';
+                }
+            }
+            echo '</select>';
+            echo '</div>';
+            echo '<div class="modal-footer">
+                    <div id="spinner2" class="spinner-border text-primary" role="status" style="display: none;">
+                        <span class="sr-only"></span>
+                    </div>
+                    <button type="button" id="btnCancel2" class="btn btn-secondary" tabindex="2">Cancel</button>
+                    <button type="submit" value="btnSave2" id="btnSave" class="btn btn-primary" translate="1">Add</button>
+                </div>';
+            echo ' </form><hr>';
         } else {
             echo '<input id="isAdm" value="0" type="hidden">';
         }
@@ -189,5 +210,8 @@ $isActiveDisabled = ($_SESSION['user']['isAdmin']) ? '' : 'disabled';
     </div>
     <!--Container Main end-->
 </body>
+<?php
+$conn->close();
+?>
 
 </html>
