@@ -50,7 +50,7 @@ allows the owners of public and / or private WIFI Hot-Spots offering internet co
   - add Atomic Transfer for **Reserve address** in algowifi.php
   - add **algowifiRest.php**
   - add **algowifiCounter.html**
-  - add **GraphStat of trx** on dashboard.
+  - add **GraphStat of tx** on dashboard.
   
   
 
