@@ -27,12 +27,18 @@ $NFT_wifi = $_POST['identity'];
 $referAdd = $_SERVER['HTTP_REFERER'];
 $remoteAdd = $_SERVER['REMOTE_ADDR'];
 
-$remoteAdd = str_replace("https://", "", $remoteAdd);
-$remoteAdd = str_replace("http://", "", $remoteAdd);
-$remoteAdd = str_replace("www.", "", $remoteAdd);
+//remove common prefixes from refer address
+$sanitizedReferAdd = str_replace("https://", "", $referAdd);
+$sanitizedReferAdd = str_replace("http://", "", $sanitizedReferAdd);
+$sanitizedReferAdd = str_replace("www.", "", $sanitizedReferAdd);
 
+//remove path leaving just domain 
+$pos = strpos($sanitizedReferAdd, "/");
+$sanitizedReferAdd = substr($sanitizedReferAdd, 0, $pos);
 
-//se l'nft non è impostato, mostra campagna di default
+//error_log("referAdd ".$referAdd);
+
+//it nft is missing, show default campaign
 if (!isset($NFT_wifi)) {
     //show default campaign
     $image = $defaultImage;
@@ -51,7 +57,10 @@ if (!$missingNFT) {
     $nftOwnerAddress = $response->{'balances'}[0]->{'address'};
 
 //get hotspot mysql id
-$sql1 = "SELECT id FROM Hotspot WHERE nft = " . $NFT_wifi . " AND validator LIKE '%" . $referAdd . "%'";
+$sql1 = "SELECT id FROM Hotspot WHERE nft = " . $NFT_wifi . " AND validator LIKE '%" . $sanitizedReferAdd . "%'";
+
+//error_log("performing query ".$sql1);
+
 $result = $conn->query($sql1);
 $hotspotMysqlId = -1;
 if ($result->num_rows == 1) {
@@ -65,7 +74,7 @@ if ($hotspotMysqlId == -1) {
     $linkorigesc = $defaultLandingPage;
     $performTransactions = false;
     $missingNFT = true;
-    error_log("not found any hotspot for nft: ".$NFT_wifi." && validator: ".$referAdd);
+    error_log("not found any hotspot for nft: ".$NFT_wifi." && validator: ".$sanitizedReferAdd);
 } 
 else 
 {

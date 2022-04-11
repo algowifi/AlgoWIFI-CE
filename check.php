@@ -53,7 +53,7 @@
             <a href="users.php" class="nav_link '.(($pageName == "users.php" || $pageName == "user.php") ? "active" : "").'"> <i class="bx bxs-user-detail nav_icon"></i> <span class="nav_name">Users</span> </a> 
             <a href="hotspots.php" class="nav_link '.(($pageName == "hotspots.php" || $pageName == "hotspot.php") ? "active" : "").'"> <i class="bx bx-network-chart nav_icon"></i> <span class="nav_name">Hotspots</span> </a> 
             <a href="campaigns.php" class="nav_link '.(($pageName == "campaigns.php" || $pageName == "campaign.php") ? "active" : "").'"> <i class="bx bx-purchase-tag-alt nav_icon"></i> <span class="nav_name">Campaigns</span> </a> 
-            <a href="kmd.php" class="nav_link '.($pageName == "kmd.php" ? "active" : "").'"> <i class="bx bx-wallet nav_icon"></i> <span class="nav_name">Kmd</span> </a> ';
+            <a href="kmd.php" class="nav_link '.($pageName == "kmd.php" ? "active" : "").'"> <i class="bx bx-wallet nav_icon"></i> <span class="nav_name">Tools</span> </a> ';
         }
         else 
         {
