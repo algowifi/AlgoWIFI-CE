@@ -136,7 +136,7 @@ function plotChart(names, datas, divId = '#myChart') {
 
 function refreshPlotForPublisher()
 {
-    var url = './scriptsPHP/publisherGraph.php?uid=15';
+    var url = './scriptsPHP/publisherGraph.php';
     $.get(url).done(function (data) {
         if (data['success'])
             plotChart(data['metrics']['names'],data['metrics']['values'],'#myChart2');
