@@ -16,7 +16,10 @@ include './scriptsPHP/algoConfig.php';
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!--Menu-->
+   <!-- date time picker -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+   <!--Menu-->
     <link href='https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css' rel='stylesheet'>
     <script type="text/javascript" src="./js/menu.js"></script>
     <link rel="stylesheet" href="./css/menu.css">
@@ -91,7 +94,15 @@ include './scriptsPHP/algoConfig.php';
             $return_array = json_decode($return['response']);
             $algoWifiAmount = $return_array->{'assets'}->{$algowifiAssetId}->{'amount'} / 10000;
             $algoAmount = $return_array->{'amount'} / 1000000;
-            echo "<h5>Balance</h5>";
+
+            if ($_SESSION['user']['isHotspotter'])
+            {
+                echo "<h5>Rewards</h5>";
+            }
+            else 
+            {
+                echo "<h5>Balance</h5>";
+            }
 
             echo "<p>AWIFI: " . number_format($algoWifiAmount, 4, '.', ',') . "</p>";
             if ($_SESSION['user']['isLocation']) {
@@ -157,7 +168,7 @@ include './scriptsPHP/algoConfig.php';
                     <h5 class="card-title">Views and Earnings</h5>
                     <ul class="card-text">
                         <li>Tot views: <span id="totViews"></span></li>
-                        <li <?php if (!($_SESSION['user']['isAdmin'] || $_SESSION['user']['isPublisher'])) echo 'style="display:none;"'; ?>>AWIFI sent: <span id="spentAWIFI"></span></li>
+                        <li <?php if (!($_SESSION['user']['isAdmin'] || $_SESSION['user']['isPublisher'])) echo 'style="display:none;"'; ?>>AWIFI spent: <span id="spentAWIFI"></span></li>
                         <li <?php if (!($_SESSION['user']['isAdmin'] || $_SESSION['user']['isHotspotter'])) echo 'style="display:none;"'; ?>>AWIFI received: <span id="receivedAWIFI"></span></li>
                     </ul>
                 </div>
@@ -165,19 +176,65 @@ include './scriptsPHP/algoConfig.php';
 
         </div>
 
+
+    
+
+
         <?php
             if ($_SESSION['user']['isAdmin'])
             {
+
+                echo '<hr>
+                <h5>Filter graph by dates</h5>
+                    <form id="graphForm">
+                        <div class="modal-body">
+                            <div class="row gap-3">
+                                <div class="col form-group">
+                                    <label>From</label>
+                                    <input class="form-control datepicker" id="fromField" name="from date" placeholder="YYYY-MM-DD hh:mm" type="text" required/>
+                                </div>
+                                <div class="col form-group">
+                                    <label>To</label>
+                                    <input class="form-control datepicker" id="toField" name="to date" placeholder="YYYY-MM-DD hh:mm" type="text" required/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div id="spinner2" class="spinner-border text-primary" role="status" >
+                                <span class="sr-only"></span>
+                            </div>
+                            <button type="submit" id="btnUpdate" value="btnUpdate" class="btn btn-primary" translate="1">Refresh graph</button>
+                        </div>
+                    </form>';
+
+
+                echo '<p>Total transactions: <span id="totTxn">0</span></p>';
+
+
                 echo '<div class="row gap-3">
                 <div class="col card">
                     <div class="card-body">
-                        <h5 class="card-title">Last 7 days transactions</h5>
+                        <h5 class="card-title">Transaction Graph</h5>
                         <canvas id="myChart" class="card-text" ></canvas>
                     </div>
                 </div>
                 </div>';
             }
+            else if ($_SESSION['user']['isPublisher'])
+            {
+                echo '<div class="row gap-3">
+                <div class="col card">
+                    <div class="card-body">
+                        <h5 class="card-title">Campaigns Graph</h5>
+                        <canvas id="myChart2" class="card-text" ></canvas>
+                    </div>
+                </div>
+                </div>';
+            }
+
         ?>
+
+        
 
        
 

@@ -71,7 +71,7 @@ $inputDisabled = ($_SESSION['user']['isAdmin']) ? '' : 'disabled';
         <?php
         //check if there is an active campaign on this hotspot
         //Get active Campaign
-        $sql = "SELECT C.*, HC.id as relation_id, HC.hotspotId, HC.campaignId, HC.views, U.algorandAddress as publisher_address, U.id as publisher_id 
+        $sql = "SELECT U.name as ownerName, C.*, HC.id as relation_id, HC.hotspotId, HC.campaignId, HC.views, U.algorandAddress as publisher_address, U.id as publisher_id 
         FROM User as U, Campaign as C, Hotspot_Campaign as HC 
         WHERE C.isActive = 1 AND U.id = C.userId AND HC.hotspotId = " . $thisHotspot['id'] . " AND C.id = HC.campaignId
         ORDER BY C.creation ASC LIMIT 1"; // carica la campagna attiva LiFo
@@ -91,7 +91,7 @@ $inputDisabled = ($_SESSION['user']['isAdmin']) ? '' : 'disabled';
             echo '<p class="card-text">';
             echo $cName . ' - Views: ' . $cViews;
             echo ' </p>';
-            echo '<p class="card-text">Publisher: ' . $publisherAddress . '</p>';
+            echo '<p class="card-text">Publisher: ' . $publisherAddress . ($_SESSION['user']['isAdmin'] ? (' - '.$row['ownerName']) : '') . '</p>';
 
             if ($_SESSION['user']['isAdmin'])
                 echo '<a target="_blank" href="./campaign.php?cid=' . $cId . '" class="btn btn-primary">Open campaign</a>  ';
