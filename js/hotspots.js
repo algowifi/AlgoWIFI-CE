@@ -4,6 +4,7 @@ $(document).ready( function ()
     var table = $('#example').DataTable({
         "ajax": "./scriptsPHP/hotspotsList.php",
         "responsive": true,
+        "pageLength": 25,
          "columns": [
             { "data": "id" },
             { "data": "nft" },

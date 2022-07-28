@@ -1,3 +1,18 @@
+function callSetEnabledDisabledApi(cid, newValue)
+{
+    $.post("./scriptsPHP/enableDisableCampaign.php", { cid: cid, newValue: newValue }).done(function (data) {
+        if (data['success'] == 1) {
+            alertBox(data['message'], 'success');
+            
+            table.ajax.reload();
+        }
+        else {
+            alertBox(data['message'], 'danger');
+        }
+    });
+
+}
+
 
 $.fn.dataTable.ext.order['dom-checkmark'] = function  ( settings, col )
 {
@@ -5,6 +20,8 @@ $.fn.dataTable.ext.order['dom-checkmark'] = function  ( settings, col )
         return $('i', td).hasClass('bxs-check-circle') ? '1' : '0';
     } );
 }
+
+var table = null;
 
 $(document).ready( function () 
 {
@@ -15,16 +32,29 @@ $(document).ready( function ()
     }
 
      //Datatables
-     var table = $('#example').DataTable({
+     table = $('#example').DataTable({
         "ajax": "./scriptsPHP/campaignList.php",
+        "pageLength": 25,
          "columns": [
             { "data": "id" },
             { "data": "name" },
              { "data": "imageUrl", "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                $(nTd).html(`<img src='${oData.imageUrl}' width='80' height='80' />`);
+                $(nTd).html(`<img src='${oData.imageUrl}' width='30' height='30' />`);
                 } },
              { "data": "isActive" , "render": simple_checkmark, "orderDataType": "dom-checkmark"},
              { "data": "creation" },
+             { "data": "isActive", "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                if (oData.isActive == true)
+                {
+                    $(nTd).html(`<a class="btn btn-info" href="campaign.php?cid=${oData.id}" >Open</a>&nbsp;<button class="btn btn-danger" onClick="callSetEnabledDisabledApi(${oData.id},false);" >Disable</button>`);
+                }
+                else 
+                {
+                    $(nTd).html(`<a class="btn btn-info" href="campaign.php?cid=${oData.id}" >Open</a>&nbsp;<button class="btn btn-success" onClick="callSetEnabledDisabledApi(${oData.id},true);" >Enable</button>`);
+                }
+                }
+                
+             },
          ],
          "order": [[ 3, 'desc' ], [ 4, 'asc' ]],
          "columnDefs": [
@@ -47,11 +77,13 @@ $(document).ready( function ()
             }
     });
 
-    $('#example tbody').on( 'click', 'tr', function () {
-        var cid = $(this).children().first().html();
-        window.location.href = "campaign.php?cid="+cid;
+    // $('#example tbody').on( 'click', 'tr', function () {
+    //     var cid = $(this).children().first().html();
+    //     window.location.href = "campaign.php?cid="+cid;
 
-    } );
+    // } );
+
+  
 
     //Buttons
     $('#btnNew').click(function() 

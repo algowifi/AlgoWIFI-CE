@@ -15,6 +15,7 @@ $(document).ready( function ()
                 }*/ 
              }
          ],
+         "pageLength": 25,
          "columnDefs": [
             {
               targets: 4,

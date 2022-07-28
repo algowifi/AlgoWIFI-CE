@@ -1,4 +1,22 @@
+var propertiesIndex = 1;
 
+function removeRow(btn) {
+    btn.parentElement.parentElement.remove();
+    updatePropertiesAsJsonInNote();
+}
+
+function updatePropertiesAsJsonInNote()
+{
+    var newProperties = {};
+    $('#propertiesDiv .row').each(function () {
+        let key = $(this).find('.col .form-group input.newKey').val();
+        let val = $(this).find('.col .form-group input.newValue').val();
+        if (key !== "" && val !== "")
+            newProperties[key] = val;
+    });
+    let jsonString = JSON.stringify(newProperties, null, 2);
+    $('#newNote').val(jsonString);
+}
 
 $(document).ready(function () {
 
@@ -7,6 +25,20 @@ $(document).ready(function () {
     getAccounts();
 
     //Buttons
+
+    $('#addPropertyBtn').click(function () {
+        $('#propertiesDiv').append('<div class="row" style="margin-top:5px;"><div class="col"><div class="form-group"><input name="newKey' + propertiesIndex + '" placeholder="key" onchange="updatePropertiesAsJsonInNote();" type="text" class="form-control newKey" required></div></div><div class="col"><div class="form-group"><input name="newValue' + propertiesIndex + '"placeholder="value" onchange="updatePropertiesAsJsonInNote();" type="text" class="form-control newValue" required></div></div><div class="col"><button class="btn btn-danger" onclick="removeRow(this);" type="button"><i class="bx bxs-trash"></i></button></div></div>');
+        propertiesIndex++;
+    });
+
+    $('#cancFirstPropertyBtn').click(function () {
+        $('#newKey0').val('');
+        $('#newValue0').val('');
+        updatePropertiesAsJsonInNote();
+
+    });
+
+
     $('#btnNew').click(function () {
         $('#btnNew').prop("disabled", true);
         //call api
@@ -24,13 +56,25 @@ $(document).ready(function () {
     });
 
 
-    $("form").on("reset", function () {
+
+    //Forms
+
+    $("#transactionForm").on("reset", function () {
         $('#fromAssetsField').empty();
         $('#toAssetsField').empty();
         $('#transferType').empty();
     });
 
-    $("form").submit(function (event) {
+    $("#nftForm").on("reset", function () {
+        let cbAdd = $('#cbAddress').val();
+        $('#newManager').val(cbAdd);
+        $('#newReserve').val(cbAdd);
+        $('#newFreeze').val(cbAdd);
+        $('#newClawback').val(cbAdd);
+    });
+    
+
+    $("#transactionForm").submit(function (event) {
         event.preventDefault();
         //disable button
         $('#btnSave').prop("disabled", true);
@@ -59,6 +103,95 @@ $(document).ready(function () {
             $('#spinner').hide();
 
         });
+
+    });
+
+    $("#nftForm").submit(function (event) {
+        event.preventDefault();
+
+
+
+        //get form fields
+        var newStandard = $('input[name=standardRadios]:checked', '#nftForm').val()
+        var file_data = $('#newFileUrl').prop('files')[0];
+        var newName = $('#newName').val();
+        var newUnitName = $('#newUnitName').val();
+        var newTotSupply = $('#newTotSupply').val();
+        var newDecimals = $('#newDecimals').val();
+        var newUrl = $('#newUrl').val();
+        var newMetaHash = $('#newMetaHash').val();
+        var newDescription = $('#newDescription').val();
+
+        var newProperties = {};
+        $('#propertiesDiv .row').each(function () {
+            let key = $(this).find('.col .form-group input.newKey').val();
+            let val = $(this).find('.col .form-group input.newValue').val();
+            if (key !== "" && val !== "")
+                newProperties[key] = val;
+        });
+
+        var newManager = $('#newManager').val();
+        var newReserve = $('#newReserve').val();
+        var newFreeze = $('#newFreeze').val();
+        var newClawback = $('#newClawback').val();
+        var newNote = $('#newNote').val();
+
+
+        var form_data = new FormData();
+        form_data.append('newStandard', newStandard);
+        form_data.append('file', file_data);
+        form_data.append('newName', newName);
+        form_data.append('newUnitName', newUnitName);
+        form_data.append('newTotSupply', newTotSupply);
+        form_data.append('newDecimals', newDecimals);
+        form_data.append('newUrl', newUrl);
+        form_data.append('newMetaHash', newMetaHash);
+        form_data.append('newDescription', newDescription);
+        form_data.append('newProperties', JSON.stringify(newProperties)); //newProperties);
+        form_data.append('newManager', newManager);
+        form_data.append('newReserve', newReserve);
+        form_data.append('newFreeze', newFreeze);
+        form_data.append('newClawback', newClawback);
+        form_data.append('newNote', newNote);
+
+
+        if (confirm('Confermi la creazione del nuovo NFT ' + newName + '?')) {
+
+            //disable button
+            $('#btnSave2').prop("disabled", true);
+            //start spinner
+            $('#spinner2').show();
+
+            $.ajax({
+                url: './scriptsPHP/createNFT.php',
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                type: 'post',
+                success: function (response) {
+                    if (response.success == 1) {
+                        alertBox(response.message, "success", "liveAlertPlaceholder2");
+                    }
+                    else {
+                        alertBox(response.message, "danger", "liveAlertPlaceholder2");
+                    }
+                    //enable button
+                    $('#btnSave2').prop("disabled", false);
+                    //stop spinner
+                    $('#spinner2').hide();
+
+                },
+                error: function (jqXHR, textstatus, errorThrown) {
+                    alert("errore ajax " + textstatus + " " + errorThrown);
+                    //enable button
+                    $('#btnSave2').prop("disabled", false);
+                    //stop spinner
+                    $('#spinner2').hide();
+                }
+            });
+        }
 
     });
 
@@ -199,8 +332,8 @@ function getAccounts() {
     });
 }
 
-function alertBox(message, type) {
-    var alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+function alertBox(message, type, placeholderID = "liveAlertPlaceholder") {
+    var alertPlaceholder = document.getElementById(placeholderID);
     var wrapper = document.createElement('div');
     wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
     alertPlaceholder.append(wrapper);
