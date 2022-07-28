@@ -41,10 +41,11 @@ adminCheck();
     printMenu();
     ?>
     <!--Container Main start-->
-    <div class="height-100 bg-light">
-        <input type="text" hidden id="awifiAssetId" value="<?php echo $algowifiAssetId; ?>">
+    <div class="bg-light">
 
-        <form>
+        <input type="text" hidden id="awifiAssetId" value="<?php echo $algowifiAssetId; ?>">
+        <h2>Transactions tool</h2>
+        <form id="transactionForm">
             <div class="container">
                 <div class="row">
                     <div class="col">
@@ -178,15 +179,401 @@ adminCheck();
                     </form>
                 </div>
             </div>
+            <br>
+            <p><button type="button" id="btnNew" class="btn btn-primary"><i class="bx bx-plus"></i> Generate new Account</button></p>
         </div>
 
-        <br>
-        <p><button type="button" id="btnNew" class="btn btn-primary"><i class="bx bx-plus"></i> Generate new Account</button></p>
+
+
+        <!-- <div class="container">
+            <h2>NFT tool</h2>
+            <form id="nftForm">
+                <fieldset class="border p-2">
+
+                    <legend class="w-auto">Asset details</legend>
+                    <div class="row">
+                        <div class="col">
+                            NFT standard
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="standardRadios" id="standardRadios1" value="arc69" checked>
+                                    <label class="form-check-label" for="standardRadios1">
+                                        ARC69
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="standardRadios" id="standardRadios2" value="arc3">
+                                    <label class="form-check-label" for="standardRadios2">
+                                        ARC3
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>Choose File</label>
+                                    <input id="newFileUrl" type="file" accept="*" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-group-label" for="newName">
+                                        Name
+                                    </label>
+                                    <input id="newName" placeholder="NFT_Name#33" type="text" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-group-label" for="newUnitName">
+                                        Unit Name
+                                    </label>
+                                    <input id="newUnitName" placeholder="NFT_Name" type="text" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-group-label" for="newTotSupply">
+                                        Total supply
+                                    </label>
+                                    <input id="newTotSupply" type="number" value="1" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-group-label" for="newDecimals">
+                                        Decimals
+                                    </label>
+                                    <input id="newDecimals" type="number" value="0" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-group-label" for="newUrl">
+                                        Url
+                                    </label>
+                                    <input id="newUrl" placeholder="url" type="url" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-group-label" for="newMetaHash">
+                                        Metadata hash
+                                    </label>
+                                    <input id="newMetaHash" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="newDescription">Description</label>
+                                    <textarea class="form-control" placeholder="Describe your nft" id="newDescription" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="propertiesDiv">
+                            <label>Properties</label>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <input name="newKey0" id="newKey0" placeholder="key" type="text" class="form-control newKey">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <input name="newValue0" id="newValue0" placeholder="value" type="text" class="form-control newValue">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-info" type="button" id="addPropertyBtn">+</button>
+                                    <button class="btn btn-danger" type="button" id="cancFirstPropertyBtn"><i class='bx bxs-trash'></i></button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                </fieldset>
+                <br>
+                <fieldset class="border p-2">
+
+                    <legend class="w-auto">Asset management</legend>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Manager</label>
+                                <input id="newManager" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Reserve</label>
+                                <input id="newReserve" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Freeze</label>
+                                <input id="newFreeze" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Clawback</label>
+                                <input id="newClawback" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="newNote">Note</label>
+                                <textarea class="form-control" id="newNote" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+
+                <div class="row">
+                    <div class="col">
+                        <div class="modal-footer">
+                            <div id="spinner2" class="spinner-border text-primary" role="status" style="display: none;">
+                                <span class="sr-only"></span>
+                            </div>
+                            <button type="reset" id="btnReset2" class="btn btn-secondary">Reset</button>
+                            <button type="submit" id="btnSave2" value="btnSave" class="btn btn-primary" translate="1">CREATE</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div id="liveAlertPlaceholder2"></div> -->
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
     </div>
     <!--Container Main end-->
+
+    <hr>
+
+
+    <div class="bg-light">
+    <div class="container">
+            <h2>NFT tool</h2>
+            <form id="nftForm">
+                <input type="hidden" id="cbAddress" value="<?php echo $centralBankAddress;?>">
+                <fieldset class="border p-2">
+
+                    <legend class="w-auto">Asset details</legend>
+                    <div class="row">
+                        <div class="col">
+                            NFT standard
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="standardRadios" id="standardRadios1" value="arc69" checked>
+                                    <label class="form-check-label" for="standardRadios1">
+                                        ARC69
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="standardRadios" id="standardRadios2" value="arc3">
+                                    <label class="form-check-label" for="standardRadios2">
+                                        ARC3
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>Choose File</label>
+                                    <input id="newFileUrl" type="file" accept="*" class="form-control" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-group-label" for="newName">
+                                        Name
+                                    </label>
+                                    <input id="newName" placeholder="NFT_Name#33" type="text" class="form-control" >
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-group-label" for="newUnitName">
+                                        Unit Name
+                                    </label>
+                                    <input id="newUnitName" placeholder="NFT_Name" type="text" class="form-control" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-group-label" for="newTotSupply">
+                                        Total supply
+                                    </label>
+                                    <input id="newTotSupply" type="number" value="1" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-group-label" for="newDecimals">
+                                        Decimals
+                                    </label>
+                                    <input id="newDecimals" type="number" value="0" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-group-label" for="newUrl">
+                                        Url
+                                    </label>
+                                    <input id="newUrl" placeholder="https://yourUrl.com" type="url" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-group-label" for="newMetaHash">
+                                        Metadata hash
+                                    </label>
+                                    <input id="newMetaHash" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="newDescription">Description</label>
+                                    <textarea class="form-control" placeholder="Describe your nft" id="newDescription" rows="3" disabled></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="propertiesDiv">
+                            <label>Properties</label>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <input name="newKey0" id="newKey0" placeholder="key" onchange="updatePropertiesAsJsonInNote();" type="text" class="form-control newKey">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <input name="newValue0" id="newValue0" placeholder="value" onchange="updatePropertiesAsJsonInNote();" type="text" class="form-control newValue">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-info" type="button" id="addPropertyBtn">+</button>
+                                    <button class="btn btn-danger" type="button" id="cancFirstPropertyBtn"><i class='bx bxs-trash'></i></button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                </fieldset>
+                <br>
+                <fieldset class="border p-2">
+
+                    <legend class="w-auto">Asset management</legend>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Manager</label>
+                                <input id="newManager" type="text" class="form-control" value="<?php echo $centralBankAddress;?>">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Reserve</label>
+                                <input id="newReserve" type="text" class="form-control" value="<?php echo $centralBankAddress;?>" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Freeze</label>
+                                <input id="newFreeze" type="text" class="form-control" value="<?php echo $centralBankAddress;?>" >
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Clawback</label>
+                                <input id="newClawback" type="text" class="form-control" value="<?php echo $centralBankAddress;?>" >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="newNote">Note</label>
+                                <textarea class="form-control" id="newNote" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+
+                <div class="row">
+                    <div class="col">
+                        <div class="modal-footer">
+                            <div id="spinner2" class="spinner-border text-primary" role="status" style="display: none;">
+                                <span class="sr-only"></span>
+                            </div>
+                            <button type="reset" id="btnReset2" class="btn btn-secondary">Reset</button>
+                            <button type="submit" id="btnSave2" value="btnSave" class="btn btn-primary" translate="1">CREATE</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div id="liveAlertPlaceholder2"></div>
+
+    </div>
+
+
 
 
 

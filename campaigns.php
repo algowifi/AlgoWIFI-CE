@@ -55,6 +55,7 @@ include './scriptsPHP/dbConn.php';
                     <th>Image</th>
                     <th>Active</th>
                     <th>Creation date</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -66,6 +67,7 @@ include './scriptsPHP/dbConn.php';
                     <th>Image</th>
                     <th>Active</th>
                     <th>Creation date</th>
+                    <th>Actions</th>
                 </tr>
             </tfoot>
         </table>

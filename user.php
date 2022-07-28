@@ -151,7 +151,7 @@ if ($user['isLocation']) {
                                 </div>
                                 <?php
                                 if ($_SESSION['user']['id'] != $_GET['userid']) {
-                                    //echo '<button type="button" id="btnRemove" class="btn btn-danger">Remove user</button>';
+                                    echo '<button type="button" id="btnRemove" class="btn btn-danger">Remove user</button>';
                                 }
                                 ?>
                                 <button type="button" id="btnCancel" class="btn btn-secondary" tabindex="2">Cancel</button>
