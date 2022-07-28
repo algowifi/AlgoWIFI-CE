@@ -101,7 +101,7 @@
                 "gh" => $genesis, //Genesis Hash
                 "lv" => ($lastRound+200), //Last Valid
                 "note" => "", //Your note
-                "snd" => $mainAccountAddress, //Sender
+                "snd" => $centralBankAddress, //Sender
                 "type" => "pay", //Tx Type
                 "rcv" => $newGeneratedAddress, //Receiver
                 "amt" => 390000, //Amount
