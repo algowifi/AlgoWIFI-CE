@@ -15,7 +15,7 @@
                 document.getElementById("campaignImage").src = obj['image'];
             }
         };
-        xhttp.open("POST", "https://algowifi.com/algowifi/algowifiRest.php", true);
+        xhttp.open("POST", "https://main.algowifi.com/algowifiRest.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("identity="+code);
     </script>
