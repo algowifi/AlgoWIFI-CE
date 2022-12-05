@@ -1,9 +1,12 @@
 <?php
 
-// Marco Caldarazzo @ Algowifi
-// thanks to Algorand Foundation
-// Italy - 20 September 2022
-// info@airlan.it - for comment
+    // Marco Caldarazzo @ Algowifi
+    // thanks to Algorand Foundation
+    // Italy - 22 September 2022
+    // info@airlan.it -  for contact
+    // thanks to  https://developer.algorand.org/u/felipe.vieira/ for PHP SDK
+    // thanks to Sergio Caserta - Algorand Champion
+ 
 
 
 include './scriptsPHP/dbConn.php';
