@@ -4,7 +4,7 @@
     // thanks to Algorand Foundation
     // Italy - 22 September 2022
     // info@airlan.it -  for contact
-
+    // thanks to  https://developer.algorand.org/u/felipe.vieira/
  
     //1) Constants
     $mainAccountAddress = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"; // main account
