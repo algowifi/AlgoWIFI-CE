@@ -1,7 +1,7 @@
 <?php
 	$servername = "localhost";
 	$username = "algowifi";//"algoDBUser";
-	$password = "MetroWimax2022!";//"q-hcNsq3IebPDPjK";
+	$password = "Your_pass_db"; // pass for db
 
 
 	// Create connection
