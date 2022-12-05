@@ -16,7 +16,7 @@
     $algodToken = '49f27db9b910c6e3548de27e73af38697394906ff2c2f0aeace2fe2b15589bce'; // algod token
     $kmdToken = 'b1bdecba8a5374ea4e4b853df49f9d58c1877ee5edcbd2fba63653228dc35d74'; // Kmd token
     $genesis = 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI='; // Genesis hash
-    $algowifiAssetId = 67967557; // id asset token
+    $algowifiAssetId = 67967557; // id AWIFI  token
     $algodPort = 53898;
     $kmdPort = 7833;
     $server = "localhost";
