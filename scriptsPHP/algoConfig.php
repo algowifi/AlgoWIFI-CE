@@ -1,4 +1,9 @@
 <?php
+
+    // Marco Caldarazzo @ Algowifi
+    // thanks to Algorand Foundation
+    // Italy - 22 September 2022
+
  
     //1) Constants
     $mainAccountAddress = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"; // main account
