@@ -1,5 +1,10 @@
 <?php
 
+// Marco Caldarazzo @ Algowifi
+// thanks to Algorand Foundation
+// Italy - 20 September 2022
+
+
 include './scriptsPHP/dbConn.php';
 include('sdk/algorand.php');
 include('./scriptsPHP/algoConfig.php');
