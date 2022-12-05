@@ -1,15 +1,15 @@
 <?php
  
     //1) Constants
-    $mainAccountAddress = "HX2NYIIWEYBTSKE2EMAKIRZAQPRRL2JJOLPBCX33V2TYWGIBR626JHM6RA";
-    $mainReserveAddress = "QYEZ6NCSPFSU53WWEOROREHFBYP42FBSUSJ5ZEM3R2R5VPNUSNKDHG5JSY"; //reserve address 
-    $centralBankAddress = "TI2UFIE3VEAHHQZPQIPFR6ISJP66P452YKJISYUWJMEYHODX5INJQ3465Q"; 
+    $mainAccountAddress = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"; // main account
+    $mainReserveAddress = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"; // reserve address 
+    $centralBankAddress = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"; // deposit account 
     $mainWalletPw = ''; //password wallet
-    $mainWalletId = '27008546fcceca5252bf3938f21eff5e';
-    $algodToken = '49f27db9b910c6e3548de27e73af38697394906ff2c2f0aeace2fe2b15589bce';
-    $kmdToken = 'b1bdecba8a5374ea4e4b853df49f9d58c1877ee5edcbd2fba63653228dc35d74';
-    $genesis = 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI=';
-    $algowifiAssetId = 67967557;
+    $mainWalletId = 'XXXXXXXXXXXXXXXXXXXXXXXXXXX'; // ID wallet
+    $algodToken = '49f27db9b910c6e3548de27e73af38697394906ff2c2f0aeace2fe2b15589bce'; // algod token
+    $kmdToken = 'b1bdecba8a5374ea4e4b853df49f9d58c1877ee5edcbd2fba63653228dc35d74'; // Kmd token
+    $genesis = 'SGO1GKSzyE7IEPItTxCByw9x8FmnrCDexi9/cOUJOiI='; // Genesis hash
+    $algowifiAssetId = 67967557; // id asset token
     $algodPort = 53898;
     $kmdPort = 7833;
     $server = "localhost";
