@@ -3,6 +3,7 @@
 // Marco Caldarazzo @ Algowifi
 // thanks to Algorand Foundation
 // Italy - 20 September 2022
+// info@airlan.it - for comment
 
 
 include './scriptsPHP/dbConn.php';
